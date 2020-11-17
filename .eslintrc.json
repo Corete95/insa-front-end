@@ -1,0 +1,21 @@
+{
+  "parser": "babel-eslint", // 최신 문법 지원
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": false
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "ignorePatterns": ["node_modules/"],
+  "extends": ["react-app", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": ["error", { "endOfLine": "auto" }]
+  }
+}
