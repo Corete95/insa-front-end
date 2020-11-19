@@ -125,3 +125,20 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
