@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Project.scss";
-import { BsGrid, BsPlus, BsFilterLeft } from "react-icons/bs";
+import { BsSearch, BsGrid, BsPlus } from "react-icons/bs";
+import { MdSort } from "react-icons/md";
 import ProjectComponet from "../../components/ProjectComponent/ProjectCompnonent";
 
 const Project = () => {
@@ -36,9 +37,12 @@ const Project = () => {
         <button className="blueBtn">즐겨찾기</button>
       </div>
       <div className="projectSortArea">
-        <input placeholder="검색어를 입력하세요" />
+        <div className="search">
+          <BsSearch className="searchIcon" />
+          <input placeholder="검색어를 입력하세요" />
+        </div>
         <div className="projectIcons">
-          <BsFilterLeft color="#999999" />
+          <MdSort className="filterIcon" />
           <BsGrid />
         </div>
       </div>

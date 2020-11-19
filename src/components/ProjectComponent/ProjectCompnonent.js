@@ -4,7 +4,7 @@ import "./ProjectComponent.scss";
 
 const ProjectComponet = ({ title, member }) => {
   return (
-    <div className="ProjectComponent">
+    <div className="gridProjectComponent">
       <div className="projectContent">
         <h3>{title}</h3>
       </div>
