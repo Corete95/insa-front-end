@@ -14,12 +14,20 @@ class Routes extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route exact path="/Main" component={Main} />
-          <Route exact path="/Notice" component={Notice} />
-          <Route exact path="/Project" component={Project} />
-          <Route exact path="/Nav" component={Nav} />
-          <Route exact path="/Footer" component={Footer} />
-          <Route exact path="/Side" component={Side} />
+          <Route
+            exact
+            path="*"
+            component={() => (
+              <>
+                <Nav />
+                <Side />
+                <Route exact path="/Main" component={Main} />
+                <Route exact path="/Notice" component={Notice} />
+                <Route exact path="/Project" component={Project} />
+                <Route exact path="/Footer" component={Footer} />
+              </>
+            )}
+          />
         </Switch>
       </Router>
     );
