@@ -1,0 +1,33 @@
+.EditUserProfile {
+  background-color: #d8e1e3;
+
+  h1 {
+    font-size: 40px;
+    color: #33508b;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  .userAddress {
+    display: flex;
+
+    .addressInput {
+      width: 178px;
+      height: 51px;
+      border: none;
+      border-radius: 38px;
+    }
+
+    button {
+      width: 154px;
+      height: 51px;
+      border: none;
+      border-radius: 38px;
+      color: white;
+      background-color: #33508b;
+      font-size: 16px;
+    }
+  }
+}

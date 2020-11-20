@@ -7,6 +7,7 @@ import Project from "./pages/Project/Project";
 import Footer from "./components/Footer/Footer";
 import Nav from "./components/Nav/Nav";
 import Side from "./components/Side/Side";
+import EditUserInfo from "./pages/EditUserInfo/EditUserInfo";
 
 class Routes extends Component {
   render() {
@@ -18,6 +19,7 @@ class Routes extends Component {
           <Route exact path="/Notice" component={Notice} />
           <Route exact path="/Project" component={Project} />
           <Route exact path="/Nav" component={Nav} />
+          <Route exact path="/Profile" component={EditUserInfo} />
           <Route exact path="/Footer" component={Footer} />
           <Route exact path="/Side" component={Side} />
         </Switch>
