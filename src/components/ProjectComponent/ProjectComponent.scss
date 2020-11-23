@@ -7,15 +7,17 @@
   height: 270px;
   padding: 11px;
   margin: 0 30px 40px 0;
-  border: 1px solid lightgray;
 
-  .ProjectComponent:hover {
-    border-radius: 20px;
+  @media (max-width: 768px) {
+    margin: 0 26px 40px 0;
   }
+
+  border: 1px solid lightgray;
 
   .projectContent {
     height: 119px;
     padding: 19px;
+
     h3 {
       font-size: 20px;
       font-weight: 500;
@@ -31,9 +33,18 @@
     border-top: 1px solid lightgray;
     padding: 20px 0 10px 8px;
     margin-top: auto;
+
     p {
       color: #999999;
       font-size: 12px;
     }
+  }
+
+  .bookmarkIcon {
+    color: #999999;
+  }
+
+  .bookmarkFillIcon {
+    color: #fe4e00;
   }
 }

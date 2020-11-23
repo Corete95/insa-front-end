@@ -6,6 +6,8 @@ import ProjectComponet from "../../components/ProjectComponent/ProjectCompnonent
 
 const Project = () => {
   const [project_data, setProject] = useState([]);
+  const [focusedMenu, SetFocusedMenu] = useState("showAll");
+
   useEffect(() => {
     fetch("/Data/Projectdata.json")
       .then((res) => res.json())
@@ -14,27 +16,28 @@ const Project = () => {
       });
   }, []);
 
-  const [changeBtn, activatedBtn] = useState(false);
-
-  const handleBtnColor = () => {
-    activatedBtn(!changeBtn);
-    console.log("button clicked!");
+  const handleBtnColor = (e) => {
+    SetFocusedMenu(e.target.id);
   };
 
   return (
     <div className="Project">
       <h1>Project</h1>
       <div className="projectSortBtn">
-        {changeBtn === true ? (
-          <button className="blueBtn" onClick={handleBtnColor}>
-            전체보기
-          </button>
-        ) : (
-          <button className="grayBtn" onClick={handleBtnColor}>
-            전체보기
-          </button>
-        )}
-        <button className="blueBtn">즐겨찾기</button>
+        <button
+          id="showAll"
+          className={focusedMenu === "showAll" ? "blueBtn" : "grayBtn"}
+          onClick={(e) => handleBtnColor(e)}
+        >
+          전체보기
+        </button>
+        <button
+          id="bookmark"
+          className={focusedMenu === "bookmark" ? "blueBtn" : "grayBtn"}
+          onClick={(e) => handleBtnColor(e)}
+        >
+          즐겨찾기
+        </button>
       </div>
       <div className="projectSortArea">
         <div className="search">
