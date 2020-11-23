@@ -3,9 +3,9 @@ import "./UserInfo.scss";
 
 const UserInfo = () => {
   return (
-    <div>
-      <p>아이디</p>
-      <input />
+    <div className="userInfo">
+      <p>{user_data.title}</p>
+      <input type="{user_data.type}" />
     </div>
   );
 };
