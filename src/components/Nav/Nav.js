@@ -17,28 +17,31 @@ const Nav = () => {
   ];
 
   return (
-    <NavContainer>
-      <NavLeftContainer>
-        <Link to="/Main">
-          <InsaLogoComponent />
-        </Link>
-        {/* <div>업무시간</div>
+    <>
+      <NavContainer>
+        <NavLeftContainer>
+          <Link to="/Main">
+            <InsaLogoComponent />
+          </Link>
+          {/* <div>업무시간</div>
         <div>시간 입력 창</div> */}
-      </NavLeftContainer>
-      <NavCenterContainer>
-        {menuNames.map((names) => {
-          return <Link>{names}</Link>;
-        })}
-      </NavCenterContainer>
-      <NavRightContainer>
-        <Link>
-          <FiMail />
-        </Link>
-        <Link>
-          <FaRegUser />
-        </Link>
-      </NavRightContainer>
-    </NavContainer>
+        </NavLeftContainer>
+        <NavCenterContainer>
+          {menuNames.map((names) => {
+            return <Link>{names}</Link>;
+          })}
+        </NavCenterContainer>
+        <NavRightContainer>
+          <Link>
+            <FiMail />
+          </Link>
+          <Link>
+            <FaRegUser />
+          </Link>
+        </NavRightContainer>
+      </NavContainer>
+      <Ghost />
+    </>
   );
 };
 
@@ -122,4 +125,8 @@ const NavRightContainer = styled.div`
       animation: ${showUp} 0.8s linear;
     }
   }
+`;
+
+const Ghost = styled.div`
+  height: 90px;
 `;

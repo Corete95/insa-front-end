@@ -186,7 +186,7 @@ const Profile = styled.div`
 
 const WorkingState = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: 90px;
   width: 100%;
 
   .belowButton {
