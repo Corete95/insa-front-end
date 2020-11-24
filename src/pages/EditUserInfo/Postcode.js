@@ -1,110 +1,44 @@
-// import React, { Component } from "react";
-// import DaumPostCode from "react-daum-postcode";
-// import "./Postcode.scss";
-// class Postcode extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       name: "",
-//       phone: "",
-//       address: "",
-//       zoneCode: "",
-//       fullAddress: "",
-//       isDaumPost: false,
-//       isRegister: false,
-//       register: []
-//     };
-//   }
+import React, { useState } from "react";
+import DaumPostcode from "react-daum-postcode";
+import "./Postcode.scss";
 
-//   handleOpenPost = () => {
-//     this.setState({
-//       isDaumPost: true
-//     });
-//   };
+const Postcode = () => {
+  const [isAddress, setIsAddress] = useState("");
+  const [isZoneCode, setIsZoneCode] = useState();
+  const [isPostOpen, setIsPostOpen] = useState(true);
 
-//   handleAddress = (data) => {
-//     let AllAddress = data.address;
-//     let extraAddress = "";
-//     let zoneCodes = data.zonecode;
+  const handleComplete = (data) => {
+    let fullAddress = data.address;
+    let extraAddress = "";
 
-//     if (data.addressType === "R") {
-//       if (data.bname !== "") {
-//         extraAddress += data.bname;
-//       }
-//       if (data.buildingName !== "") {
-//         extraAddress +=
-//           extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-//       }
-//       AllAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-//     }
-//     this.setState({
-//       fullAddress: AllAddress,
-//       zoneCode: zoneCodes
-//     });
-//   };
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+    setIsZoneCode(data.zonecode);
+    setIsAddress(fullAddress);
+    setIsPostOpen(false);
+  };
+  const postCodeStyle = {
+    display: "block",
+    position: "absolute",
+    top: "50%",
+    width: "400px",
+    height: "500px",
+    padding: "7px"
+  };
 
-//   render() {
-//     const { isModalShow, isModalClose } = this.props;
-//     const {
-//       name,
-//       phone,
-//       address,
-//       isDaumPost,
-//       fullAddress,
-//       zoneCode,
-//       isRegister
-//     } = this.state;
+  return (
+    <div className="postcode">
+      <DaumPostcode style={postCodeStyle} onComplete={handleComplete} />
+    </div>
+  );
+};
 
-//     // DaumPostCode style
-//     const width = 595;
-//     const height = 450;
-//     const modalStyle = {
-//       position: "absolute",
-//       top: 0,
-//       left: "-178px",
-//       zIndex: "100",
-//       border: "1px solid #000000",
-//       overflow: "hidden"
-//     };
-//     return (
-//       <div className="modalRow">
-//         <div className="modalCell cellTit">
-//           <div>
-//             <span>
-//               <b>*</b>주소
-//             </span>
-//           </div>
-//         </div>
-//         <div className="modalCell">
-//           <div className="cellFirst">
-//             <div className="zipCode">{zoneCode}</div>
-//             <button type="button" onClick={this.handleOpenPost}>
-//               <span>우편번호 찾기</span>
-//             </button>
-//           </div>
-//           {isDaumPost ? (
-//             <DaumPostCode
-//               onComplete={this.handleAddress}
-//               autoClose
-//               width={width}
-//               height={height}
-//               style={modalStyle}
-//               isDaumPost={isDaumPost}
-//             />
-//           ) : null}
-//           <div className="address">{fullAddress}</div>
-//           <div className="addressBox">
-//             <input
-//               type="text"
-//               value={address}
-//               name="address"
-//               onChange={this.handleInput}
-//             />
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Postcode;
+export default Postcode;

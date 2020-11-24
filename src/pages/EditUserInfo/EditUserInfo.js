@@ -1,17 +1,55 @@
 import React, { useState, useEffect } from "react";
-import Postcode from "./Postcode";
+import DaumPostcode from "react-daum-postcode";
 import UserInfo from "../../components/Profile/UserInfo";
 import "./EditUserInfo.scss";
 
 const EditUserInfo = () => {
   const [user_data, setUserData] = useState([]);
   useEffect(() => {
-    fetch("../../components/Profile/Userdata.js")
+    fetch("../../components/Profile/Userdata")
       .then((res) => res.json())
       .then((res) => {
         setUserData(res.user_data);
       });
   }, []);
+
+  console.log("Are you there?????", user_data);
+
+  const [isAddress, setIsAddress] = useState("");
+  const [isZoneCode, setIsZoneCode] = useState();
+  const [isPostOpen, setIsPostOpen] = useState(true);
+  const [openPost, setOpenPost] = useState(false);
+
+  const handleComplete = (data) => {
+    let fullAddress = data.address;
+    let extraAddress = "";
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+    setIsZoneCode(data.zonecode);
+    setIsAddress(fullAddress);
+    setIsPostOpen(false);
+  };
+  const postCodeStyle = {
+    display: "block",
+    position: "absolute",
+    top: "50%",
+    width: "400px",
+    height: "500px",
+    padding: "7px"
+  };
+
+  const showPostcode = () => {
+    setOpenPost(!openPost);
+  };
 
   return (
     <div className="EditUserProfile">
@@ -20,7 +58,6 @@ const EditUserInfo = () => {
         return (
           <UserInfo
             key={user_data.id}
-            necessary={user_data.necessary}
             title={user_data.title}
             type={user_data.text}
           />
@@ -29,7 +66,12 @@ const EditUserInfo = () => {
       <div className="userAddress">
         <p> 주소 </p>
         <input className="addressInput" />
-        <button onClick={Postcode}>우편번호 찾기</button>
+        <button onClick={showPostcode}>우편번호 찾기</button>
+        {openPost && (
+          <>
+            <DaumPostcode style={postCodeStyle} onComplete={handleComplete} />
+          </>
+        )}
       </div>
       <button>뒤로</button>
       <button className="editBtn">수정</button>
