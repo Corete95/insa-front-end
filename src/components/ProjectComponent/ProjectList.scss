@@ -1,0 +1,33 @@
+.listProjectComponent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1226px;
+  height: 80px;
+  background-color: #ffffff;
+  margin-bottom: 30px;
+  padding: 0 30px;
+
+  .projectContents {
+    display: flex;
+
+    p {
+      margin-right: 64px;
+      font-size: 14px;
+      color: #999999;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 400;
+    }
+  }
+
+  .bookmarkIcon {
+    color: #999999;
+  }
+
+  .bookmarkFillIcon {
+    color: #fe4e00;
+  }
+}
