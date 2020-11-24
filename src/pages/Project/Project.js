@@ -6,15 +6,17 @@ import ProjectComponet from "../../components/ProjectComponent/ProjectCompnonent
 import ProjectList from "../../components/ProjectComponent/ProjectList";
 
 const Project = () => {
-  const [project_data, setProject] = useState([]);
+  const [project_data, SetProject] = useState([]);
   const [focusedMenu, SetFocusedMenu] = useState("showAll");
   const [listMenu, SetListMenu] = useState(true);
+  const [searchTerm, SetSearchTerm] = useState("");
+  const [searchResults, SetSearchResults] = useState([]);
 
   useEffect(() => {
     fetch("/Data/Projectdata.json")
       .then((res) => res.json())
       .then((res) => {
-        setProject(res.project_data);
+        SetProject(res.project_data);
       });
   }, []);
 
@@ -26,6 +28,18 @@ const Project = () => {
     SetListMenu(!listMenu);
   };
 
+  const handleChange = (e) => {
+    SetSearchTerm(e.target.value);
+  };
+
+  useEffect(() => {
+    const results = project_data.filter((listOfProject) =>
+      listOfProject.title.includes(searchTerm)
+    );
+    SetSearchResults(results);
+  }, [searchTerm]);
+
+  console.log(searchResults);
   return (
     <div className="Project">
       <h1>Project</h1>
@@ -48,7 +62,11 @@ const Project = () => {
       <div className="projectSortArea">
         <div className="search">
           <BsSearch className="searchIcon" />
-          <input placeholder="검색어를 입력하세요" />
+          <input
+            placeholder="검색어를 입력하세요"
+            onChange={handleChange}
+            value={searchTerm}
+          />
         </div>
         <div className="projectIcons">
           <MdSort className="filterIcon" onClick={makeItList} />
@@ -59,10 +77,14 @@ const Project = () => {
         <div className="projectCards">
           <div className={listMenu ? "newProject" : "newListProject"}>
             <BsPlus className="plusIcon" />
-            <p>
-              New <br />
-              Project
-            </p>
+            {listMenu ? (
+              <p>
+                New <br />
+                Project
+              </p>
+            ) : (
+              <p> New Project</p>
+            )}
           </div>
           {project_data.map((project_data) => {
             if (listMenu === true) {
