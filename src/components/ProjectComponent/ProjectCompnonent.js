@@ -9,7 +9,6 @@ const ProjectComponet = ({ title, member }) => {
     setBookmark(!bookmark);
   };
 
-  console.log("????", handleBookmark);
   return (
     <div className="gridProjectComponent">
       <div className="projectContent">

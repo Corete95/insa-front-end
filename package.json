@@ -12,6 +12,8 @@
     "node-sass": "^4.14.1",
     "prettier": "^2.1.2",
     "react": "^17.0.1",
+    "react-calendar": "^3.2.1",
+    "react-compound-timer": "^1.2.0",
     "react-dom": "^17.0.1",
     "react-icons": "^3.11.0",
     "react-redux": "^7.2.2",
@@ -19,6 +21,7 @@
     "react-scripts": "4.0.0",
     "redux": "^4.0.5",
     "styled-components": "^5.2.1",
+    "tui-calendar": "^1.12.14",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

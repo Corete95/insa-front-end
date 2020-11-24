@@ -3,10 +3,12 @@ import "./Project.scss";
 import { BsSearch, BsGrid, BsPlus } from "react-icons/bs";
 import { MdSort } from "react-icons/md";
 import ProjectComponet from "../../components/ProjectComponent/ProjectCompnonent";
+import ProjectList from "../../components/ProjectComponent/ProjectList";
 
 const Project = () => {
   const [project_data, setProject] = useState([]);
   const [focusedMenu, SetFocusedMenu] = useState("showAll");
+  const [listMenu, SetListMenu] = useState(true);
 
   useEffect(() => {
     fetch("/Data/Projectdata.json")
@@ -18,6 +20,10 @@ const Project = () => {
 
   const handleBtnColor = (e) => {
     SetFocusedMenu(e.target.id);
+  };
+
+  const makeItList = () => {
+    SetListMenu(!listMenu);
   };
 
   return (
@@ -45,29 +51,39 @@ const Project = () => {
           <input placeholder="검색어를 입력하세요" />
         </div>
         <div className="projectIcons">
-          <MdSort className="filterIcon" />
-          <BsGrid />
+          <MdSort className="filterIcon" onClick={makeItList} />
+          <BsGrid onClick={makeItList} />
         </div>
       </div>
       <div>
         <div className="projectCards">
-          <div className="newProject">
-            <BsPlus size="45px" />
+          <div className={listMenu ? "newProject" : "newListProject"}>
+            <BsPlus className="plusIcon" />
             <p>
               New <br />
               Project
             </p>
           </div>
-
           {project_data.map((project_data) => {
-            return (
-              <ProjectComponet
-                key={project_data.id}
-                id={project_data.id}
-                title={project_data.title}
-                member={project_data.member}
-              />
-            );
+            if (listMenu === true) {
+              return (
+                <ProjectComponet
+                  key={project_data.id}
+                  id={project_data.id}
+                  title={project_data.title}
+                  member={project_data.member}
+                />
+              );
+            } else {
+              return (
+                <ProjectList
+                  key={project_data.id}
+                  id={project_data.id}
+                  title={project_data.title}
+                  member={project_data.member}
+                />
+              );
+            }
           })}
         </div>
       </div>

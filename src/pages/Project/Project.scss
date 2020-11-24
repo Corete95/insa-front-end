@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   width: 1256px;
-  margin-left: 100px;
+  margin-left: 415px;
 
   h1 {
     margin-bottom: 60px;
@@ -24,7 +24,7 @@
     color: #33508b;
     border: 2px solid #33508b;
     border-radius: 32px;
-    font-size: 21px;
+    font-size: 20px;
   }
 
   .grayBtn {
@@ -53,6 +53,7 @@
       input {
         margin-left: 10px;
         border: none;
+        background-color: transparent;
       }
 
       input::placeholder {
@@ -63,7 +64,7 @@
   }
 
   .filterIcon {
-    color: #b2b2b2;
+    color: #e2e2e2;
     margin-right: 13px;
   }
 
@@ -83,11 +84,30 @@
       height: 270px;
       background-color: #ded6ca;
 
+      .plusIcon {
+        font-size: 42px;
+      }
+
       p {
         font-size: 20px;
         font-weight: bold;
         text-align: center;
         margin-top: 28px;
+      }
+    }
+
+    .newListProject {
+      display: flex;
+      align-items: center;
+      width: 1226px;
+      height: 80px;
+      background-color: #ded6ca;
+      margin-bottom: 30px;
+      padding-left: 20px;
+
+      .plusIcon {
+        font-size: 23px;
+        margin-right: 122px;
       }
     }
   }
