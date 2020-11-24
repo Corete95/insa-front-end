@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer";
 import Nav from "./components/Nav/Nav";
 import Side from "./components/Side/Side";
 import EditUserInfo from "./pages/EditUserInfo/EditUserInfo";
+import NoticeDetailPage from "./pages/Notice/NoticeDetailPage";
 
 class Routes extends Component {
   render() {
@@ -27,6 +28,11 @@ class Routes extends Component {
                 <Route exact path="/Profile" component={EditUserInfo} />
                 <Route exact path="/Project" component={Project} />
                 <Route exact path="/Footer" component={Footer} />
+                <Route
+                  exact
+                  path="/NoticeDetailPage"
+                  component={NoticeDetailPage}
+                />
               </>
             )}
           />
