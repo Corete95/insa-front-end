@@ -6,6 +6,7 @@ import "./Main.scss";
 
 const Main = () => {
   const [noticeContents, setNoticeContents] = useState([]);
+  const [mainProjectList, setMainProjectList] = useState([]);
 
   useEffect(() => {
     fetch("http://192.168.0.11:8000/notice/main")
@@ -15,32 +16,15 @@ const Main = () => {
       });
   }, []);
 
-  const mockProject = [
-    {
-      id: 1,
-      title:
-        "첫번째 제목인줄 알았지만 그것이 아니라 그것보다 긴 텍스트를 실험해보기 위함이었다",
-      member: 123
-    },
-    {
-      id: 2,
-      title:
-        "첫번째 제목인줄 알았지만 그것이 아니라 그것보다 긴 텍스트를 실험해보기 위함이었다",
-      member: 1111111111111111111111111111111111111111111111111111111111111111111111111
-    },
-    {
-      id: 3,
-      title:
-        "첫번째 제목인줄 알았지만 그것이 아니라 그것보다 긴 텍스트를 실험해보기 위함이었다",
-      member: 123
-    },
-    {
-      id: 4,
-      title:
-        "첫번째 제목인줄 알았지만 그것이 아니라 그것보다 긴 텍스트를 실험해보기 위함이었다",
-      member: 123
-    }
-  ];
+  useEffect(() => {
+    fetch("http://192.168.0.18:8000/project/main")
+      .then((response) => response.json())
+      .then((data) => {
+        setMainProjectList(data.main_list);
+      });
+  }, []);
+
+  console.log(mainProjectList);
 
   return (
     <>
@@ -66,12 +50,16 @@ const Main = () => {
             Project <AiOutlineRight className="rightArrow" />
           </MainTitle>
           <div className="mainProjectContainer">
-            {mockProject.map((element, idx) => {
+            {mainProjectList?.map((element, idx) => {
               return (
                 <ProjectComponet
                   idx={idx}
+                  id={element.id}
                   title={element.title}
                   member={element.member}
+                  description={element.description}
+                  start_date={element.start_date}
+                  end_date={element.end_date}
                 ></ProjectComponet>
               );
             })}
