@@ -39,7 +39,6 @@ const Project = () => {
     SetSearchResults(results);
   }, [searchTerm]);
 
-  console.log(searchResults);
   return (
     <div className="Project">
       <h1>Project</h1>

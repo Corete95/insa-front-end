@@ -46,6 +46,7 @@
     .search {
       border-bottom: 1px solid black;
       padding: 0 0 10px 3px;
+
       .searchIcon {
         width: 20.3px;
       }
@@ -60,6 +61,15 @@
         font-size: 16px;
         font-weight: 300;
       }
+    }
+
+    .search:after {
+      transform: scaleX(0);
+      transition: transform 250ms ease-in-out;
+    }
+
+    .search:hover:after {
+      transform: scaleX(1);
     }
   }
 
