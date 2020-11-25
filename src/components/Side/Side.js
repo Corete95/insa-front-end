@@ -6,7 +6,7 @@ import { BsPlus } from "react-icons/bs";
 import "./Side.scss";
 
 const Side = () => {
-  const [value, onChange] = useState(new Date());
+  const [value, onChange] = useState(() => new Date());
   const [hiddenState, setHiddenState] = useState(false);
   const [userState, setUserState] = useState("근무 중");
 
@@ -15,6 +15,8 @@ const Side = () => {
   const showingButton = () => {
     setHiddenState(!hiddenState);
   };
+
+  //setTimeOut
 
   return (
     <SideBarContainer>
@@ -117,7 +119,7 @@ const SideBarContainer = styled.aside`
   position: fixed;
   text-align: center;
   width: 315px;
-  height: 100vh;
+  height: 100px;
   background-color: rgba(34, 34, 34, 0.5);
   z-index: -1;
 `;
