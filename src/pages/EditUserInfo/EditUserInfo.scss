@@ -4,6 +4,7 @@
   h1 {
     font-size: 40px;
     color: #33508b;
+    margin-bottom: 78px;
   }
 
   p {
@@ -12,6 +13,8 @@
 
   .userAddress {
     display: flex;
+    justify-content: space-between;
+    width: 500px;
 
     .addressInput {
       width: 178px;
@@ -31,14 +34,31 @@
       font-size: 16px;
     }
   }
+
+  .addressField {
+    width: 953px;
+    height: 51px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 38px;
+  }
+
   button {
     width: 116px;
     height: 50px;
     border: none;
     border-radius: 25px;
   }
-  .editBtn {
-    color: white;
-    background-color: #303030;
+
+  .editBtnArea {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 105px;
+
+    .editBtn {
+      margin-left: 25px;
+      color: white;
+      background-color: #303030;
+    }
   }
 }

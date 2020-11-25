@@ -4,8 +4,10 @@ import "./UserInfo.scss";
 const UserInfo = ({ title, type }) => {
   return (
     <div className="userInfo">
-      <p>{title}</p>
-      <input type={type} />
+      <div className="userInputArea">
+        <p>{title}</p>
+        <input type={type} />
+      </div>
     </div>
   );
 };

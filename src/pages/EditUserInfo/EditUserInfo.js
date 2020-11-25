@@ -6,14 +6,12 @@ import "./EditUserInfo.scss";
 const EditUserInfo = () => {
   const [user_data, setUserData] = useState([]);
   useEffect(() => {
-    fetch("../../components/Profile/Userdata")
+    fetch("/Data/Userdata.json")
       .then((res) => res.json())
       .then((res) => {
         setUserData(res.user_data);
       });
   }, []);
-
-  console.log("Are you there?????", user_data);
 
   const [isAddress, setIsAddress] = useState("");
   const [isZoneCode, setIsZoneCode] = useState();
@@ -65,16 +63,21 @@ const EditUserInfo = () => {
       })}
       <div className="userAddress">
         <p> 주소 </p>
-        <input className="addressInput" />
-        <button onClick={showPostcode}>우편번호 찾기</button>
-        {openPost && (
-          <>
-            <DaumPostcode style={postCodeStyle} onComplete={handleComplete} />
-          </>
-        )}
+        <div className="searchPostArea">
+          <input className="addressInput" />
+          <button onClick={showPostcode}>우편번호 찾기</button>
+          {openPost && (
+            <>
+              <DaumPostcode style={postCodeStyle} onComplete={handleComplete} />
+            </>
+          )}
+        </div>
       </div>
-      <button>뒤로</button>
-      <button className="editBtn">수정</button>
+      <input className="addressField"></input>
+      <div className="editBtnArea">
+        <button>뒤로</button>
+        <button className="editBtn">수정</button>
+      </div>
     </div>
   );
 };
