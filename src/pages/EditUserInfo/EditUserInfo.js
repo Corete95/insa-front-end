@@ -15,7 +15,7 @@ const EditUserInfo = () => {
 
   const [isAddress, setIsAddress] = useState("");
   const [isZoneCode, setIsZoneCode] = useState();
-  const [isPostOpen, setIsPostOpen] = useState(true);
+
   const [openPost, setOpenPost] = useState(false);
 
   const handleComplete = (data) => {
@@ -34,7 +34,7 @@ const EditUserInfo = () => {
     }
     setIsZoneCode(data.zonecode);
     setIsAddress(fullAddress);
-    setIsPostOpen(false);
+    setOpenPost(false);
   };
   const postCodeStyle = {
     display: "block",
@@ -64,7 +64,7 @@ const EditUserInfo = () => {
       <div className="userAddress">
         <p> 주소 </p>
         <div className="searchPostArea">
-          <input className="addressInput" />
+          <input className="addressInput" value={isAddress} />
           <button onClick={showPostcode}>우편번호 찾기</button>
           {openPost && (
             <>
