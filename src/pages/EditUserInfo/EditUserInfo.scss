@@ -1,5 +1,8 @@
+@import "../../styles/common.scss";
+
 .EditUserProfile {
   background-color: #d8e1e3;
+  width: 1106px;
 
   h1 {
     font-size: 40px;
@@ -11,10 +14,14 @@
     font-size: 18px;
   }
 
-  .userAddress {
+  .forms {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    width: 500px;
+  }
+
+  .userAddress {
+    @include input-container;
 
     .addressInput {
       width: 178px;
@@ -35,12 +42,16 @@
     }
   }
 
-  .addressField {
-    width: 953px;
-    height: 51px;
-    margin-top: 25px;
-    border: none;
-    border-radius: 38px;
+  .addressArea {
+    display: flex;
+    justify-content: flex-end;
+
+    .addressField {
+      width: 953px;
+      height: 51px;
+      border: none;
+      border-radius: 38px;
+    }
   }
 
   button {

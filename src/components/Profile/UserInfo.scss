@@ -1,23 +1,30 @@
+@import "../../styles/common.scss";
+
 .userInfo {
-  display: flex;
-  flex-wrap: wrap;
-  width: 765px;
-
   .userInputArea {
-    display: flex;
-    justify-content: space-between;
-    width: 500px;
+    @include input-container;
 
-    p {
-      font-size: 18px;
+    .inputLabel {
+      display: flex;
+      span {
+        color: #d42b2b;
+      }
+
+      p {
+        font-size: 18px;
+      }
     }
-
     input {
       width: 340px;
       height: 50px;
       border: none;
       border-radius: 25px;
-      margin-bottom: 30px;
+    }
+
+    input::placeholder {
+      padding-left: 32px;
+      font-size: 16px;
+      color: #b2b2b2;
     }
 
     input:focus {
