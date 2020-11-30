@@ -68,8 +68,13 @@ const Project = () => {
           />
         </div>
         <div className="projectIcons">
-          <MdSort className="filterIcon" onClick={makeItList} />
-          <BsGrid onClick={makeItList} />
+          <MdSort
+            id="sortList"
+            className="filterIcon"
+            onClick={makeItList}
+            size="34px"
+          />
+          <BsGrid id="gridList" onClick={makeItList} size="30px" />
         </div>
       </div>
       <div>
