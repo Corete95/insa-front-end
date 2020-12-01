@@ -1,0 +1,50 @@
+.gridProjectComponent {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: space-between;
+  width: 284px;
+  height: 270px;
+  padding: 11px;
+  margin: 0 30px 40px 0;
+
+  @media (max-width: 768px) {
+    margin: 0 26px 40px 0;
+  }
+
+  background-color: #ffff;
+
+  .projectContent {
+    height: 119px;
+    padding: 19px;
+
+    h3 {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 29px;
+    }
+  }
+
+  .projectFooter {
+    display: flex;
+    justify-content: space-between;
+    width: 254px;
+    height: 47px;
+    border-top: 1px solid lightgray;
+    padding: 20px 0 10px 8px;
+    margin-top: auto;
+
+    p {
+      color: #999999;
+      font-size: 12px;
+    }
+  }
+
+  .bookmarkIcon {
+    color: #999999;
+  }
+
+  .bookmarkFillIcon {
+    color: #fe4e00;
+  }
+}

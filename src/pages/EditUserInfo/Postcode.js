@@ -21,24 +21,11 @@ const Postcode = () => {
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
-    setIsZoneCode(data.zonecode);
-    setIsAddress(fullAddress);
-    setIsPostOpen(false);
-  };
-  const postCodeStyle = {
-    display: "block",
-    position: "absolute",
-    top: "50%",
-    width: "400px",
-    height: "500px",
-    padding: "7px"
+
+    console.log(fullAddress);
   };
 
-  return (
-    <div className="postcode">
-      <DaumPostcode style={postCodeStyle} onComplete={handleComplete} />
-    </div>
-  );
+  return <DaumPostcode onComplete={handleComplete} />;
 };
 
 export default Postcode;

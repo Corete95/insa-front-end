@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import UserInfo from "../../components/Profile/UserInfo";
 import "./EditUserInfo.scss";
