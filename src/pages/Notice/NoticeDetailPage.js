@@ -1,8 +1,38 @@
+import { useState, useRef } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FiPaperclip } from "react-icons/fi";
 
 const NoticeDetailPage = () => {
+  const [demoValue, setDemoValue] = useState("게시판 수정 기능 공부 중입니다.");
+  const [isInEditMode, setIsInEditMode] = useState(false);
+
+  const changeEditMode = () => {
+    setIsInEditMode(!isInEditMode);
+    console.log("clickclick");
+  };
+
+  const updateComponentValue = () => {
+    setIsInEditMode(false);
+    setDemoValue("어디갔지?");
+  };
+
+  const demoInputRef = useRef();
+
+  const renderEditView = () => {
+    return (
+      <div>
+        <input type="text" value={demoValue} ref={demoInputRef} />
+        <button onClick={updateComponentValue}>ok</button>
+        <button onClick={changeEditMode}>x</button>
+      </div>
+    );
+  };
+
+  const renderDefaultView = () => {
+    return <div>{demoValue}</div>;
+  };
+
   return (
     <NoticeWhiteBackground>
       <div className="blackSpace">
@@ -10,7 +40,7 @@ const NoticeDetailPage = () => {
       </div>
       <NoticePageContainer>
         <div className="upperButton">
-          <button>수정</button>
+          <button onClick={changeEditMode}>수정</button>
           <button>삭제</button>
         </div>
         <div className="NoticeWholeContainer">
@@ -54,6 +84,7 @@ const NoticeDetailPage = () => {
               걸맞는 성적으로 보여줄지 벌써부터 기대가 된다. /
               scrapper@osen.co.kr
             </p>
+            {isInEditMode ? renderEditView() : renderDefaultView()}
             <button className="addFile">
               <FiPaperclip />
               &nbsp; 파일 첨부
