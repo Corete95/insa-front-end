@@ -1,0 +1,39 @@
+{
+  "user_data": [
+    {
+      "id": 1,
+      "title": "아이디",
+      "type": "text"
+    },
+    {
+      "id": 2,
+      "title": "비밀번호",
+      "type": "password"
+    },
+    {
+      "id": 3,
+      "title": "새 비밀번호",
+      "type": "password"
+    },
+    {
+      "id": 4,
+      "title": "새 비밀번호 확인",
+      "type": "password"
+    },
+    {
+      "id": 5,
+      "title": "이름(한글)",
+      "type": "text"
+    },
+    {
+      "id": 6,
+      "title": "이름(영문)",
+      "type": "text"
+    },
+    {
+      "id": 7,
+      "title": "닉네임",
+      "type": "text"
+    }
+  ]
+}
