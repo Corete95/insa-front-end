@@ -1,0 +1,121 @@
+.signUpModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.9);
+
+  .iconX {
+    display: flex;
+    justify-content: flex-end;
+    padding: 39px 46px 0 0;
+  }
+
+  .textArea {
+    padding: 31px 0 0 396px;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  h1 {
+    margin-bottom: 16px;
+    font-size: 42px;
+  }
+
+  span {
+    font-size: 18px;
+    color: #888888;
+  }
+
+  .inputComponent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 56px;
+
+    .passwordConfirm {
+      .validation {
+        width: 430px;
+        padding-left: 130px;
+        margin-top: -22px;
+
+        span {
+          font-size: 14px;
+          color: #e10000;
+        }
+      }
+    }
+
+    .inputForm {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 920px;
+    }
+
+    .addressZone {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 430px;
+      margin-bottom: 24px;
+
+      p {
+        font-size: 18px;
+      }
+
+      input {
+        width: 132px;
+        height: 50px;
+        margin-right: 8px;
+        background-color: transparent;
+        border: 1px solid #222222;
+        border-radius: 25px;
+        text-align: center;
+        outline-style: none;
+      }
+
+      button {
+        width: 160px;
+        height: 50px;
+        background-color: rgba(34, 34, 34, 1);
+        color: white;
+        border: 1px solid #222222;
+        border-radius: 25px;
+      }
+    }
+
+    .address {
+      display: flex;
+      justify-content: flex-end;
+
+      .addressInput {
+        width: 790px;
+        height: 50px;
+        margin-bottom: 40px;
+        background-color: transparent;
+        border: 1px solid #222222;
+        border-radius: 25px;
+        text-align: center;
+        outline-style: none;
+      }
+    }
+  }
+
+  .joinBtn {
+    width: 418px;
+    height: 70px;
+    border: 1px solid #ded6ca;
+    border-radius: 35px;
+    background-color: #ded6ca;
+    font-size: 20px;
+  }
+}

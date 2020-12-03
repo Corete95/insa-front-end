@@ -1,0 +1,34 @@
+@import "../../styles/common.scss";
+
+.userInfo {
+  .userInputArea {
+    @include input-container;
+
+    .inputLabel {
+      display: flex;
+      span {
+        color: #d42b2b;
+      }
+
+      p {
+        font-size: 18px;
+      }
+    }
+    input {
+      width: 340px;
+      height: 50px;
+      border: none;
+      border-radius: 25px;
+    }
+
+    input::placeholder {
+      padding-left: 32px;
+      font-size: 16px;
+      color: #b2b2b2;
+    }
+
+    input:focus {
+      border: 2px solid #ded6ca;
+    }
+  }
+}

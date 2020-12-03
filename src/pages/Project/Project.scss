@@ -1,1 +1,114 @@
 @import "../../styles/common.scss";
+
+.Project {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1256px;
+  margin-left: 415px;
+
+  h1 {
+    margin-bottom: 60px;
+    font-size: 80px;
+    font-weight: bold;
+    color: #33508b;
+  }
+
+  .blueBtn {
+    width: 178px;
+    height: 63px;
+    padding: 15px 49px;
+    margin: 0 30px 160px 0;
+    background-color: transparent;
+    color: #33508b;
+    border: 2px solid #33508b;
+    border-radius: 32px;
+    font-size: 20px;
+  }
+
+  .grayBtn {
+    width: 178px;
+    height: 63px;
+    padding: 15px 49px;
+    margin: 0 30px 160px 0;
+    background-color: transparent;
+    color: #b2b2b2;
+    font-size: 21px;
+  }
+
+  .projectSortArea {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 30px 50px 0;
+
+    .search {
+      border-bottom: 1px solid black;
+      padding: 0 0 10px 3px;
+      .searchIcon {
+        width: 20.3px;
+      }
+
+      input {
+        margin-left: 10px;
+        border: none;
+        background-color: transparent;
+      }
+
+      input::placeholder {
+        font-size: 16px;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .filterIcon {
+    color: #e2e2e2;
+    margin-right: 13px;
+  }
+
+  .projectCards {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    .newProject {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0 30px 40px 0;
+      width: 284px;
+      height: 270px;
+      background-color: #ded6ca;
+
+      .plusIcon {
+        font-size: 42px;
+      }
+
+      p {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 28px;
+      }
+    }
+
+    .newListProject {
+      display: flex;
+      align-items: center;
+      width: 1226px;
+      height: 80px;
+      background-color: #ded6ca;
+      margin-bottom: 30px;
+      padding-left: 20px;
+
+      .plusIcon {
+        font-size: 23px;
+        margin-right: 122px;
+      }
+    }
+  }
+}
