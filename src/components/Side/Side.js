@@ -194,7 +194,6 @@ const SideBarContainer = styled.aside`
   width: 315px;
   height: calc(100% - 90px);
   background-color: rgba(34, 34, 34, 0.5);
-  z-index: -1;
 `;
 
 const Profile = styled.div`
@@ -261,7 +260,7 @@ const Profile = styled.div`
 
 const WorkingState = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: 90px;
   width: 100%;
 
   .belowButton {
