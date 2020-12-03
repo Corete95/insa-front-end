@@ -6,12 +6,12 @@ import Main from "./pages/Main/Main";
 import Notice from "./pages/Notice/Notice";
 import NoticeWriting from "./pages/Notice/NoticeWriting";
 import Project from "./pages/Project/Project";
+import EditUserInfo from "./pages/EditUserInfo/EditUserInfo";
 import Footer from "./components/Footer/Footer";
 import Nav from "./components/Nav/Nav";
 import Side from "./components/Side/Side";
 import { CookiesProvider } from "react-cookie";
 import SignUp from "./components/SignUpComponents/SignUpComponents";
-import EditUserInfo from "./pages/EditUserInfo/EditUserInfo";
 
 class Routes extends Component {
   render() {
@@ -36,6 +36,8 @@ class Routes extends Component {
                     component={NoticeWriting}
                   />
                   <Route exact path="/Nav" component={Nav} />
+                  <Route exact path="/Signup" component={SignUp} />
+                  <Route exact path="/Profile" component={EditUserInfo} />
                   <Route exact path="/Footer" component={Footer} />
                   <Route exact path="/Side" component={Side} />\
                 </>
