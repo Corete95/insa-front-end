@@ -1,0 +1,41 @@
+@import "../../styles/common.scss";
+
+.signupEnd {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  opacity: 0.9;
+  z-index: 100;
+  .Xicon {
+    position: relative;
+    top: 39px;
+    left: 1832px;
+    width: 42px;
+    height: 42px;
+    font-size: 50px;
+    cursor: pointer;
+  }
+  .textCenter {
+    position: relative;
+    top: 350px;
+    left: 629px;
+    .textDiv {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 710px;
+      height: 142px;
+    }
+    span {
+      text-align: center;
+      font-size: 42px;
+      font-weight: 600;
+      letter-spacing: 0.84px;
+      line-height: 66px;
+      color: #303030;
+    }
+  }
+}
