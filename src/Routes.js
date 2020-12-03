@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer";
 import Nav from "./components/Nav/Nav";
 import Side from "./components/Side/Side";
 import { CookiesProvider } from "react-cookie";
+import EditUserInfo from "./pages/EditUserInfo/EditUserInfo";
 
 class Routes extends Component {
   render() {
