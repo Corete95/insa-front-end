@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Calendar from "../../components/Side/components/react-calendar/src/Calendar";
+import { useCookies } from "react-cookie";
 import axios from "axios";
 import { BsPlus } from "react-icons/bs";
 import "./Side.scss";
+
+const stateName = ["근무 중", "식사", "휴식"];
 
 const Side = () => {
   const [value, onChange] = useState(new Date());
@@ -11,67 +14,95 @@ const Side = () => {
   const [userState, setUserState] = useState("근무 중");
 
   const [onWorking, setOnWorking] = useState(false);
-  const [startTime, setStartTime] = useState(null);
-  const [nowTime, setNowTime] = useState(null);
-  const [pauseTime, setPauseTime] = useState(null);
-  const [reStartTime, setReStartTime] = useState(null);
-  const [workingHours, setWorkingHours] = useState(new Date(0));
+  const [persistState, setPersistState] = useState(null);
 
-  const stateName = ["근무 중", "식사", "휴식"];
+  const [workingToken, setWorkingToken, removeWorkingToken] = useCookies([
+    "working_token"
+  ]);
+  const [workingHoursCookies, setWorkingHoursCookies] = useCookies([
+    "working_hours"
+  ]);
+  const [
+    startTimeCookies,
+    setStartTimeCookies,
+    removeStartTimeCookies
+  ] = useCookies(["start_time"]);
+  const [
+    pauseTimeCookies,
+    setPauseTimeCookies,
+    removePauseTimeCookies
+  ] = useCookies(["pause_time"]);
+  const [
+    reStartTimeCookies,
+    setReStartTimeCookies,
+    removeReStartTimeCookies
+  ] = useCookies(["restart_time"]);
+  const [finishTimeCookies, setFinishTimeCookies] = useCookies(["finish_time"]);
 
   const showingButton = () => {
     setHiddenState(!hiddenState);
   };
 
-  let interval;
+  const interval = useRef();
 
   const timer = () => {
-    if (!startTime) {
-      setStartTime(new Date());
+    if (!startTimeCookies.start_time) {
+      setStartTimeCookies("start_time", Date.now());
       setOnWorking(true);
-    } else if (startTime && pauseTime) {
-      let plusTime = reStartTime - pauseTime;
-      console.log(typeof plusTime);
-      new Date(plusTime);
-      console.log(typeof plusTime);
-      setStartTime(new Date(startTime + plusTime));
+      setWorkingToken("working_token", "onWorking");
+    } else if (startTimeCookies.start_time && reStartTimeCookies.restart_time) {
+      let preCal =
+        reStartTimeCookies.restart_time - pauseTimeCookies.pause_time;
+      setStartTimeCookies(
+        "start_time",
+        Number(startTimeCookies.start_time) + preCal
+      );
+      removeReStartTimeCookies("restart_time");
+      setPersistState(false);
     }
-    console.log("시작 시간", startTime);
-    console.log(typeof nowTime);
-    console.log(typeof startTime);
-    setNowTime(new Date());
-    setWorkingHours(new Date(nowTime - startTime));
+    setWorkingHoursCookies(
+      "working_hours",
+      new Date(Date.now() - startTimeCookies.start_time)
+    );
   };
 
   useEffect(() => {
-    if (onWorking) {
-      interval = setInterval(() => timer(), 1000);
+    if (workingToken.working_token) {
+      interval.current = setInterval(() => timer(), 1000);
+      setOnWorking(true);
     }
-    return () => clearInterval(interval);
-  }, [workingHours, onWorking]);
+    return () => clearInterval(interval.current);
+  }, [onWorking, persistState]);
 
   const resumeTimer = (e) => {
-    if (workingHours.getTime() > 0) {
+    if (new Date(workingHoursCookies.working_hours).getTime() > 0) {
       setUserState(e.target.value);
       setOnWorking(true);
-      setReStartTime(new Date());
+      setPersistState(true);
+      setWorkingToken("working_token", "onWorking");
+      setReStartTimeCookies("restart_time", Date.now());
     }
   };
 
   const stopTimer = (e) => {
-    if (workingHours.getTime() > 0) {
+    if (new Date(workingHoursCookies.working_hours).getTime() > 0) {
       setUserState(e.target.value);
       setOnWorking(false);
-      setPauseTime(new Date());
-      clearTimeout(interval);
+      removeWorkingToken("working_token");
+      setPauseTimeCookies("pause_time", Date.now());
+      clearTimeout(interval.current);
     }
   };
 
   const finishTimer = () => {
     setOnWorking(false);
-    setStartTime(null);
-    setWorkingHours(new Date(0));
-    clearTimeout(interval);
+    removeWorkingToken("working_token");
+    setWorkingHoursCookies("working_hours", new Date(0));
+    setFinishTimeCookies("finish_time", Date.now());
+    removeStartTimeCookies("start_time");
+    removePauseTimeCookies("pause_time");
+    removeReStartTimeCookies("restart_time");
+    clearTimeout(interval.current);
   };
 
   return (
@@ -125,8 +156,9 @@ const Side = () => {
           <div className="dDay">D +555</div>
         </div>
         <div>
-          {workingHours.getHours() - 9}시간 {workingHours.getMinutes()}분{" "}
-          {workingHours.getSeconds()}초
+          {new Date(workingHoursCookies.working_hours).getHours() - 9}시간{" "}
+          {new Date(workingHoursCookies.working_hours).getMinutes()}분{" "}
+          {new Date(workingHoursCookies.working_hours).getSeconds()}초
         </div>
       </Profile>
       <Calendar onChange={onChange} value={value} />
