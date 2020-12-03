@@ -197,7 +197,7 @@ const SideBarContainer = styled.aside`
 `;
 
 const Profile = styled.div`
-  margin: 80px 0px 60px 0px;
+  margin: 80px 0px 70px 0px;
   color: #ffffff;
 
   .profileContainer {
@@ -260,7 +260,7 @@ const Profile = styled.div`
 
 const WorkingState = styled.div`
   position: absolute;
-  bottom: 90px;
+  bottom: 0px;
   width: 100%;
 
   .belowButton {
