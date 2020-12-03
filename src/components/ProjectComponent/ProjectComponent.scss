@@ -15,14 +15,44 @@
   background-color: #ffff;
 
   .projectContent {
-    height: 119px;
-    padding: 19px;
-
+    display: flex;
+    align-items: center;
+    width: 265px;
+    height: 50px;
+    padding: 16px;
+    border-bottom: 1px solid gray;
+    
     h3 {
       font-size: 20px;
       font-weight: 500;
       line-height: 29px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
+  }
+
+  .projectContentContainer{
+      padding: 10px 10px 0px 10px;
+
+      .projectDescription{
+        width: 240px;
+        height: 110px;
+        color: #B1A6AD;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 6;
+        line-height: 1.14em;
+        word-wrap:break-word;
+      }
+
+      .projectPeriod{
+        margin-top: 5px;
+        font-size: 12px;
+        color: #B1A6AD;
+      }
   }
 
   .projectFooter {
