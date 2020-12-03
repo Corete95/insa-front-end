@@ -3,11 +3,12 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import DaumPostcode from "react-daum-postcode";
 import InputComponent from "./InputComponent";
+import SignupEnd from "./SignupEnd";
 import { BiX } from "react-icons/bi";
 import { CY_API } from "../../config";
 import "./SignUpComponents.scss";
 
-const SignUp = () => {
+const SignUp = ({ open, SignUpClose }) => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
@@ -18,7 +19,20 @@ const SignUp = () => {
   const [isAddress, setIsAddress] = useState("");
   const [isZoneCode, setIsZoneCode] = useState();
   const [openPost, setOpenPost] = useState(false);
+  const [endModal, setendModal] = useState(false);
   const history = useHistory();
+
+  const isendModalOpen = () => {
+    setendModal(true);
+  };
+
+  const isendModalClose = () => {
+    setendModal(false);
+  };
+
+  const moveEndUp = () => {
+    isendModalOpen();
+  };
 
   const postCodeStyle = {
     display: "block",
@@ -122,7 +136,7 @@ const SignUp = () => {
         .then((res) => {
           if (res.status === 201) {
             alert("회원가입에 성공했습니다!");
-            history.push("/Login");
+            isendModalOpen();
           }
         })
 
@@ -137,97 +151,104 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signUpModal">
-      <div className="iconX">
-        <BiX size="42px" />
-      </div>
-      <div className="textArea">
-        <h1>INSA 회원가입</h1>
-        <span>아래 항목들은 모두 필수항목입니다.</span>
-      </div>
-      <section>
-        <div className="inputComponent">
-          <InputComponent
-            title="아이디"
-            type="text"
-            value={userId}
-            handleInput={handleId}
-          />
-          <div className="inputForm">
-            <InputComponent
-              title="비밀번호"
-              type="password"
-              value={password}
-              handleInput={handlePassword}
-            />
-            <div className="passwordConfirm">
+    <>
+      {open ? (
+        <div className="signUpModal">
+          <div className="iconX">
+            <BiX className="Xicon" size="90px" onClick={SignUpClose} />
+          </div>
+          <div className="textArea">
+            <h1>INSA 회원가입</h1>
+            <span>아래 항목들은 모두 필수항목입니다.</span>
+          </div>
+          <section>
+            <div className="inputComponent">
               <InputComponent
-                title="비밀번호 확인"
-                type="password"
-                value={checkPassword}
-                handleInput={handleCheckPassword}
+                title="아이디"
+                type="text"
+                value={userId}
+                handleInput={handleId}
               />
-              {checkPassword !== password ? (
-                <div className="validation">
-                  <span>* 비밀번호가 일치하지 않습니다</span>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-            <InputComponent
-              title="이름(한글)"
-              type="text"
-              value={nameKor}
-              handleInput={handleNameKor}
-            />
-            <InputComponent
-              title="이름(영문)"
-              type="text"
-              value={nameEn}
-              handleInput={handleNameEn}
-            />
-            <InputComponent
-              title="휴대폰"
-              type="tel"
-              value={phoneNumber}
-              handleInput={handlePhoneNumber}
-            />
-            <InputComponent
-              title="주민번호"
-              type="text"
-              value={idNumber}
-              handleInput={handleIdNumber}
-            />
-          </div>
-          <div className="addressZone">
-            <p>주소</p>
-            <div>
-              <input value={isZoneCode} />
-              <button onClick={showPostcode}>우편번호 찾기</button>
-              {openPost && (
-                <>
-                  <DaumPostcode
-                    style={postCodeStyle}
-                    onComplete={handleComplete}
+              <div className="inputForm">
+                <InputComponent
+                  title="비밀번호"
+                  type="password"
+                  value={password}
+                  handleInput={handlePassword}
+                />
+                <div className="passwordConfirm">
+                  <InputComponent
+                    title="비밀번호 확인"
+                    type="password"
+                    value={checkPassword}
+                    handleInput={handleCheckPassword}
                   />
-                </>
-              )}
+                  {checkPassword !== password ? (
+                    <div className="validation">
+                      <span>* 비밀번호가 일치하지 않습니다</span>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <InputComponent
+                  title="이름(한글)"
+                  type="text"
+                  value={nameKor}
+                  handleInput={handleNameKor}
+                />
+                <InputComponent
+                  title="이름(영문)"
+                  type="text"
+                  value={nameEn}
+                  handleInput={handleNameEn}
+                />
+                <InputComponent
+                  title="휴대폰"
+                  type="tel"
+                  value={phoneNumber}
+                  handleInput={handlePhoneNumber}
+                />
+                <InputComponent
+                  title="주민번호"
+                  type="text"
+                  value={idNumber}
+                  handleInput={handleIdNumber}
+                />
+              </div>
+              <div className="addressZone">
+                <p>주소</p>
+                <div>
+                  <input value={isZoneCode} />
+                  <button onClick={showPostcode}>우편번호 찾기</button>
+                  {openPost && (
+                    <>
+                      <DaumPostcode
+                        style={postCodeStyle}
+                        onComplete={handleComplete}
+                      />
+                    </>
+                  )}
+                </div>
+              </div>
+              <div className="address">
+                <input
+                  className="addressInput"
+                  value={isAddress}
+                  onChange={handleAddress}
+                />
+              </div>
             </div>
-          </div>
-          <div className="address">
-            <input
-              className="addressInput"
-              value={isAddress}
-              onChange={handleAddress}
-            />
-          </div>
+            <button className="joinBtn" onClick={moveEndUp}>
+              회원가입
+            </button>
+          </section>
         </div>
-        <button className="joinBtn" onClick={submit}>
-          회원가입
-        </button>
-      </section>
-    </div>
+      ) : null}
+      {endModal && (
+        <SignupEnd open={endModal} signEndModalClose={isendModalClose} />
+      )}
+    </>
   );
 };
 
