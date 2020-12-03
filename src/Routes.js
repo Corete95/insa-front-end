@@ -7,7 +7,8 @@ import Project from "./pages/Project/Project";
 import Footer from "./components/Footer/Footer";
 import Nav from "./components/Nav/Nav";
 import Side from "./components/Side/Side";
-import SignUp from "./pages/SignUp/SignUp";
+import SignUp from "./components/SignUpComponents/SignUpComponents";
+import EditUserInfo from "./pages/EditUserInfo/EditUserInfo";
 
 class Routes extends Component {
   render() {
@@ -25,6 +26,7 @@ class Routes extends Component {
                 <Route exact path="/Signup" component={SignUp} />
                 <Route exact path="/Main" component={Main} />
                 <Route exact path="/Notice" component={Notice} />
+                <Route exact path="/Profile" component={EditUserInfo} />
                 <Route exact path="/Project" component={Project} />
                 <Route exact path="/Footer" component={Footer} />
               </>
