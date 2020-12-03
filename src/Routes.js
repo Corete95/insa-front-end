@@ -7,6 +7,7 @@ import Project from "./pages/Project/Project";
 import Footer from "./components/Footer/Footer";
 import Nav from "./components/Nav/Nav";
 import Side from "./components/Side/Side";
+import SignUp from "./components/SignUpComponents/SignUpComponents";
 import EditUserInfo from "./pages/EditUserInfo/EditUserInfo";
 
 class Routes extends Component {
@@ -22,6 +23,7 @@ class Routes extends Component {
               <>
                 <Nav />
                 <Side />
+                <Route exact path="/Signup" component={SignUp} />
                 <Route exact path="/Main" component={Main} />
                 <Route exact path="/Notice" component={Notice} />
                 <Route exact path="/Profile" component={EditUserInfo} />
