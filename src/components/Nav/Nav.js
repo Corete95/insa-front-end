@@ -23,8 +23,6 @@ const Nav = () => {
           <Link to="/Main">
             <InsaLogoComponent />
           </Link>
-          {/* <div>업무시간</div>
-        <div>시간 입력 창</div> */}
         </NavLeftContainer>
         <NavCenterContainer>
           {menuNames.map((names) => {
@@ -99,6 +97,7 @@ const NavCenterContainer = styled.div`
     text-decoration: none;
     color: #ffffff;
     border-radius: 4px;
+    user-select: none;
 
     :hover {
       color: #303030;
@@ -120,6 +119,7 @@ const NavRightContainer = styled.div`
   a {
     text-decoration: none;
     color: #ffffff;
+    user-select: none;
 
     :hover {
       animation: ${showUp} 0.8s linear;

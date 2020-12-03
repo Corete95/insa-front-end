@@ -27,46 +27,44 @@ const Main = () => {
   console.log(mainProjectList);
 
   return (
-    <>
-      <Container>
-        <NoticeContainer>
-          <MainTitle>
-            Notice <AiOutlineRight className="rightArrow" />
-          </MainTitle>
-          <ul>
-            {noticeContents?.map((element) => {
-              return (
-                <li>
-                  <span className="title">{element.title}</span>
-                  <p>{element.content}</p>
-                  <span className="date">{element.date}</span>
-                </li>
-              );
-            })}
-          </ul>
-        </NoticeContainer>
-        <ProjectContainer>
-          <MainTitle project>
-            Project <AiOutlineRight className="rightArrow" />
-          </MainTitle>
-          <div className="mainProjectContainer">
-            {mainProjectList?.map((element, idx) => {
-              return (
-                <ProjectComponet
-                  idx={idx}
-                  id={element.id}
-                  title={element.title}
-                  member={element.member}
-                  description={element.description}
-                  start_date={element.start_date}
-                  end_date={element.end_date}
-                ></ProjectComponet>
-              );
-            })}
-          </div>
-        </ProjectContainer>
-      </Container>
-    </>
+    <Container>
+      <NoticeContainer>
+        <MainTitle>
+          Notice <AiOutlineRight className="rightArrow" />
+        </MainTitle>
+        <ul>
+          {noticeContents?.map((element) => {
+            return (
+              <li>
+                <span className="title">{element.title}</span>
+                <p>{element.content}</p>
+                <span className="date">{element.date}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </NoticeContainer>
+      <ProjectContainer>
+        <MainTitle project>
+          Project <AiOutlineRight className="rightArrow" />
+        </MainTitle>
+        <div className="mainProjectContainer">
+          {mainProjectList?.map((element, idx) => {
+            return (
+              <ProjectComponet
+                idx={idx}
+                id={element.id}
+                title={element.title}
+                member={element.member}
+                description={element.description}
+                start_date={element.start_date}
+                end_date={element.end_date}
+              ></ProjectComponet>
+            );
+          })}
+        </div>
+      </ProjectContainer>
+    </Container>
   );
 };
 
