@@ -1,0 +1,75 @@
+@import "../../styles/common.scss";
+
+.EditUserProfile {
+  margin: 85px 0 0 614px;
+  width: 1106px;
+
+  h1 {
+    font-size: 40px;
+    color: #33508b;
+    margin-bottom: 78px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  .forms {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .userAddress {
+    @include input-container;
+
+    .addressInput {
+      width: 178px;
+      height: 51px;
+      border: none;
+      border-radius: 38px;
+      margin: 0 8px 0 63px;
+    }
+
+    button {
+      width: 154px;
+      height: 51px;
+      border: none;
+      border-radius: 38px;
+      color: white;
+      background-color: #33508b;
+      font-size: 16px;
+    }
+  }
+
+  .addressArea {
+    display: flex;
+    justify-content: flex-end;
+
+    .addressField {
+      width: 953px;
+      height: 51px;
+      border: none;
+      border-radius: 38px;
+    }
+  }
+
+  button {
+    width: 116px;
+    height: 50px;
+    border: none;
+    border-radius: 25px;
+  }
+
+  .editBtnArea {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 105px;
+
+    .editBtn {
+      margin-left: 25px;
+      color: white;
+      background-color: #303030;
+    }
+  }
+}
