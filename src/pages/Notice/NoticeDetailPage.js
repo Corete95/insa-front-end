@@ -1,37 +1,93 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FiPaperclip } from "react-icons/fi";
+import axios from "axios";
+
+const mockData = {
+  title: "데이터 로딩 중 입니다",
+  created_at: "20-12-04",
+  content: "데이터 로딩 중 입니다"
+};
 
 const NoticeDetailPage = () => {
-  const [demoValue, setDemoValue] = useState("게시판 수정 기능 공부 중입니다.");
+  const [noticeData, setNoticeData] = useState(mockData);
   const [isInEditMode, setIsInEditMode] = useState(false);
-
-  const changeEditMode = () => {
-    setIsInEditMode(!isInEditMode);
-    console.log("clickclick");
-  };
-
-  const updateComponentValue = () => {
-    setIsInEditMode(false);
-    setDemoValue("어디갔지?");
-  };
 
   const demoInputRef = useRef();
 
-  const renderEditView = () => {
+  const changeEditMode = () => {
+    setIsInEditMode(!isInEditMode);
+  };
+
+  const onChangeTitle = (e) => {
+    const { value } = e.target;
+    setNoticeData({ ...noticeData, title: value });
+  };
+
+  const onChangeContent = (e) => {
+    const { value } = e.target;
+    setNoticeData({ ...noticeData, content: value });
+  };
+
+  const defaultEditButton = () => {
+    return <button onClick={changeEditMode}>수정</button>;
+  };
+
+  const changingEditButton = () => {
     return (
-      <div>
-        <input type="text" value={demoValue} ref={demoInputRef} />
-        <button onClick={updateComponentValue}>ok</button>
-        <button onClick={changeEditMode}>x</button>
-      </div>
+      <button className="changingButton" onClick={changeEditMode}>
+        수정 완료
+      </button>
     );
   };
 
-  const renderDefaultView = () => {
-    return <div>{demoValue}</div>;
+  const EditTitle = () => {
+    return (
+      <input
+        type="text"
+        value={noticeData?.title}
+        ref={demoInputRef}
+        onChange={onChangeTitle}
+      />
+    );
   };
+
+  const EditContent = () => {
+    return (
+      <input
+        type="text"
+        value={noticeData?.content}
+        ref={demoInputRef}
+        onChange={onChangeContent}
+      />
+    );
+  };
+
+  const defaultTitle = () => {
+    return <h3 className="noticeBorderTitle">{noticeData?.title}</h3>;
+  };
+
+  const defaultContent = () => {
+    return <div>{noticeData?.content}</div>;
+  };
+
+  useEffect(() => {
+    axios
+      .get("http://192.168.0.139:8000/notice/detail/42")
+      .then((response) => {
+        setNoticeData(response.data.notice);
+      })
+      .catch((response) => {
+        console.log("error");
+      });
+  }, []);
+
+  const resultPhotoData = noticeData.attachments?.filter((element) => {
+    element.includes("+image/jpeg");
+  });
+
+  console.log("데이터 형식 확인", noticeData);
 
   return (
     <NoticeWhiteBackground>
@@ -40,51 +96,24 @@ const NoticeDetailPage = () => {
       </div>
       <NoticePageContainer>
         <div className="upperButton">
-          <button onClick={changeEditMode}>수정</button>
+          {isInEditMode ? changingEditButton() : defaultEditButton()}
           <button>삭제</button>
         </div>
         <div className="NoticeWholeContainer">
           <div className="titleContainer">
-            <h3 className="noticeBorderTitle">
-              Hi 노동법 개정이 전세가격에 미치는 영향
-            </h3>
-            <span className="titleDate">20-05-14</span>
+            {isInEditMode ? EditTitle() : defaultTitle()}
+            <span className="titleDate">{noticeData?.created_at}</span>
           </div>
           <div className="NoticeContentsContainer">
             <p>
-              <img
-                src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202011/25/poctan/20201125000717193dfss.jpg"
-                alt="sdsds"
-              />
-              [OSEN=고용준 기자] 공격적인 행보로 나섰지만 스프링시즌 8위, 서머
-              시즌 9위로 고개 숙였던 2020시즌은 잊어도 좋을 것 같다. 다시 한 번
-              팔을 걷어 올려붙인 한화생명이 2021시즌 스토리리그의 승자로 등극했.
-              한화생명이 거물급 FA '데프트' 김혁규와 '쵸비' 정지훈을 모두 잡는
-              수완을 보였다. 한화생명은 24일 공식 SNS를 통해 '데프트' 김혁규와
-              '쵸비' 정지훈의 영입 소식을 밝혔다. 2020시즌 로스터들을 스토브리그
-              개막 전에 일찌감치 정리하면서 대규모 리빌딩을 예고했던 한화생명은
-              지난 16일 '노페' 정노철 코치와 17일 '바이퍼' 박도현과 '리헨즈'
-              손시우와 계약을 종료하면서 전면 리빌딩을 실천에 옮겼다. 지난 24일
-              탑 '모건' 박기태와 '윈터' 김요한 영입을 발표하면서 시동을 건
-              한화생명은 '데프트' 김혁규 영입전 승자로 이름을 올리면서 대형 FA
-              영입을 기대하던 한화팬들의 욕구를 충족시켰다. 리그를 대표하는
-              최고의 원거리 딜러에 손꼽히는 김혁규는 특유의 공격적인 플레이와
-              쏟아내는 딜링으로 ‘딜링 머신’이란 별명을 가지고 있다 뛰어난
-              리더십과 발군의 실력으로 2020시즌 디알엑스 운영의 사령관이었던
-              '데프트' 김혁규의 영입으로 한화생명은 팀의 중심을 잡아줄 선수를
-              구했다. 여기에 정글러 '캐드' 조성용, 정글 유망주 박미르 영입을
-              공개하면서 정글 경쟁 체제를 공지, 팀내 긴장 구도까지 형성했다.
-              한화생명의 공격적인 배팅은 여기서 멈추지 않았다. 오후 10시 '쵸비'
-              정지훈의 영입을 발표하면서 다시 한 번 e스포츠 업계와 팬들을 놀라게
-              했다. 지난 2018년 그리핀을 통해 LCK 무대에 데뷔한 '쵸비' 정지훈은
-              2020시즌 디알엑스의 롤드컵 진출을 이끈 미드 라이너 최대어. LCK를
-              대표하는 미드 라이너로 평가받고 있다. '데프트' 김혁규와 '쵸비'
-              정지훈 등 굵직한 선수들의 마음을 사로잡으면서 스토브리그의 승자로
-              거듭난 한화생명이 다가오는 2021시즌 스토브리그의 성과를 그에
-              걸맞는 성적으로 보여줄지 벌써부터 기대가 된다. /
-              scrapper@osen.co.kr
+              {isInEditMode ? EditContent() : defaultContent()}
+              {resultPhotoData?.map((element) => {
+                if (element.includes("+image/jpeg")) {
+                  element = element.replaceAll("+image/jpeg", "");
+                }
+                return <img src={element} alt="공지사항 사진입니다." />;
+              })}
             </p>
-            {isInEditMode ? renderEditView() : renderDefaultView()}
             <button className="addFile">
               <FiPaperclip />
               &nbsp; 파일 첨부
@@ -108,7 +137,7 @@ const NoticeDetailPage = () => {
           </div>
         </div>
         <ListButtonTag>
-          <Link>목록</Link>
+          <Link to="/Notice">목록</Link>
         </ListButtonTag>
       </NoticePageContainer>
     </NoticeWhiteBackground>
@@ -119,7 +148,7 @@ export default NoticeDetailPage;
 
 const NoticeWhiteBackground = styled.div`
   margin-left: 315px;
-  /* height: 100%; */
+  width: 1416px;
   background-color: #ffffff;
   z-index: -700;
 
@@ -140,6 +169,7 @@ const NoticeDetailTitle = styled.h1`
 const NoticePageContainer = styled.section`
   margin: 0px auto;
   width: 1226px;
+  height: 100%;
 
   .upperButton {
     display: flex;
@@ -148,8 +178,18 @@ const NoticePageContainer = styled.section`
     button {
       margin-right: 10px;
       padding: 0px;
-      width: 25px;
+      width: 40px;
       border-bottom: 1px solid black;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .changingButton {
+      margin-right: 10px;
+      padding: 0px;
+      width: 80px;
+      border-bottom: 1px solid black;
+      font-size: 15px;
       cursor: pointer;
     }
   }
@@ -204,14 +244,18 @@ const BelowInfo = styled.div`
 `;
 
 const ListButtonTag = styled.div`
-  margin: 100px 50px;
+  padding: 80px 30px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 
   a {
+    padding: 17px;
+    width: 116px;
+    height: 50px;
+    text-align: center;
     color: #ffffff;
     background-color: #000000;
-    border-radius: 30%;
+    border-radius: 60px / 50px;
   }
 `;
