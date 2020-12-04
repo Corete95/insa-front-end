@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
+import "./Postcode.scss";
 
 const Postcode = () => {
+  const [isAddress, setIsAddress] = useState("");
+  const [isZoneCode, setIsZoneCode] = useState();
+  const [isPostOpen, setIsPostOpen] = useState(true);
+
   const handleComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = "";
