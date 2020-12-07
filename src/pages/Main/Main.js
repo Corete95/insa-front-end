@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { AiOutlineRight } from "react-icons/ai";
 import ProjectComponet from "../../components/ProjectComponent/ProjectCompnonent";
+import { API } from "../../config";
 import "./Main.scss";
 
 const Main = () => {
@@ -9,7 +10,7 @@ const Main = () => {
   const [mainProjectList, setMainProjectList] = useState([]);
 
   useEffect(() => {
-    fetch("http://192.168.0.11:8000/notice/main")
+    fetch(`${API}/notice/main`)
       .then((response) => response.json())
       .then((data) => {
         setNoticeContents(data.returning_notices);
@@ -17,7 +18,7 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://192.168.0.18:8000/project/main")
+    fetch(`${API}/project/main`)
       .then((response) => response.json())
       .then((data) => {
         setMainProjectList(data.main_list);
@@ -116,7 +117,6 @@ const NoticeContainer = styled.div`
       }
 
       .date {
-        display: inline-block;
         margin: 10px 0px;
         color: #999999;
         font-size: 12px;
@@ -141,7 +141,5 @@ const ProjectContainer = styled.div`
 
   .mainProjectContainer {
     display: flex;
-    justify-content: space-between;
-    margin: 0px 1em 0px -2em;
   }
 `;
