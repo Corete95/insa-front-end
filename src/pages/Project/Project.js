@@ -4,19 +4,22 @@ import { BsSearch, BsGrid, BsPlus } from "react-icons/bs";
 import { MdSort } from "react-icons/md";
 import ProjectComponet from "../../components/ProjectComponent/ProjectCompnonent";
 import ProjectList from "../../components/ProjectComponent/ProjectList";
+import { YJ_API } from "../../config";
 
 const Project = () => {
   const [project_data, SetProject] = useState([]);
+  const [bookmark, SetBookmark] = useState([]);
   const [focusedMenu, SetFocusedMenu] = useState("showAll");
   const [listMenu, SetListMenu] = useState(true);
   const [searchTerm, SetSearchTerm] = useState("");
   const [searchResults, SetSearchResults] = useState([]);
 
   useEffect(() => {
-    fetch("/Data/Projectdata.json")
+    fetch(`${YJ_API}/project/list`)
       .then((res) => res.json())
-      .then((res) => {
-        SetProject(res.project_data);
+      .then((data) => {
+        SetProject(data.main_list);
+        SetBookmark(data.like_project_list);
       });
   }, []);
 
@@ -36,8 +39,10 @@ const Project = () => {
     const results = project_data.filter((listOfProject) =>
       listOfProject.title.includes(searchTerm)
     );
-    SetSearchResults(results);
-  }, [searchTerm]);
+    searchTerm === ""
+      ? SetSearchResults(project_data)
+      : SetSearchResults(results);
+  }, [searchTerm, project_data, bookmark]);
 
   return (
     <div className="Project">
@@ -77,7 +82,7 @@ const Project = () => {
           <BsGrid id="gridList" onClick={makeItList} size="30px" />
         </div>
       </div>
-      <div>
+      {focusedMenu === "showAll" ? (
         <div className="projectCards">
           <div className={listMenu ? "newProject" : "newListProject"}>
             <BsPlus className="plusIcon" />
@@ -90,14 +95,16 @@ const Project = () => {
               <p> New Project</p>
             )}
           </div>
-          {project_data.map((project_data) => {
+
+          {searchResults.map((project_data) => {
             if (listMenu === true) {
               return (
                 <ProjectComponet
                   key={project_data.id}
                   id={project_data.id}
                   title={project_data.title}
-                  member={project_data.member}
+                  description={project_data.description}
+                  participants={project_data.participants}
                 />
               );
             } else {
@@ -106,13 +113,38 @@ const Project = () => {
                   key={project_data.id}
                   id={project_data.id}
                   title={project_data.title}
-                  member={project_data.member}
+                  participants={project_data.participants}
                 />
               );
             }
           })}
         </div>
-      </div>
+      ) : (
+        <div className="bookmarkedProject">
+          {bookmark.map((bookmark) => {
+            if (listMenu === true) {
+              return (
+                <ProjectComponet
+                  key={bookmark.id}
+                  id={bookmark.id}
+                  title={bookmark.title}
+                  description={bookmark.description}
+                  participants={bookmark.participants}
+                />
+              );
+            } else {
+              return (
+                <ProjectList
+                  key={bookmark.id}
+                  id={bookmark.id}
+                  title={bookmark.title}
+                  participants={bookmark.participants}
+                />
+              );
+            }
+          })}
+        </div>
+      )}
     </div>
   );
 };

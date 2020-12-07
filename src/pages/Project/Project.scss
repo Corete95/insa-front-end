@@ -55,6 +55,7 @@
         margin-left: 10px;
         border: none;
         background-color: transparent;
+        outline-style: none;
       }
 
       input::placeholder {
@@ -82,7 +83,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 
     .newProject {
       display: flex;
@@ -125,5 +126,12 @@
         font-weight: bold;
       }
     }
+  }
+
+  .bookmarkedProject {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
   }
 }
