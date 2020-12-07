@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FiPaperclip } from "react-icons/fi";
-import { CY_NOTICE_API } from "../../config";
+import { API } from "../../config";
 import axios from "axios";
 
 const mockData = {
@@ -11,7 +11,7 @@ const mockData = {
   content: "데이터 로딩 중 입니다"
 };
 
-const NoticeDetailPage = ({ match, history }) => {
+const NoticeDetailPage = ({ match }) => {
   const [noticeData, setNoticeData] = useState(mockData);
   const [idNumber, setIdNumber] = useState(null);
   const [noticePrevious, setNoticePrevious] = useState(mockData);
@@ -78,7 +78,7 @@ const NoticeDetailPage = ({ match, history }) => {
 
   useEffect(() => {
     axios
-      .get(`${CY_NOTICE_API}/notice/detail/${match.params.id}`)
+      .get(`${API}/notice/detail/${match.params.id}`)
       .then((response) => {
         setIdNumber(match.params.id);
         setNoticeData(response.data.notice);
@@ -101,8 +101,10 @@ const NoticeDetailPage = ({ match, history }) => {
         "해당 게시물을 삭제하시겠습니까? \n삭제된 데이터는 복구할 수 없습니다."
       )
     ) {
-      await axios.post(`${CY_NOTICE_API}/notice/detail/`, {
-        body: match.params.id
+      await axios.delete(`${API}/notice/detail/${match.params.id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token")
+        }
       });
       alert("게시물이 삭제되었습니다.");
       return (window.location.href = "/Notice");

@@ -36,12 +36,12 @@ function Login(props) {
       .then((res) => res.json())
       .then((res) => {
         if (checked === true) {
-          localStorage.setItem("token", res.Authorization);
+          localStorage.setItem("token", res.token);
           console.log("asdas");
           props.history.push("/Main");
           alert("로그인 유지!");
         } else {
-          window.sessionStorage.setItem("token", res.Authorization);
+          window.sessionStorage.setItem("token", res.token);
 
           alert("로그인 유지 아님!!");
         }
