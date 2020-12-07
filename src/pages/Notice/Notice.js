@@ -19,7 +19,7 @@ const Notice = () => {
     axios
       .get(`${API}/notice/list?offset=${(pageNumber - 1) * 5}`)
       .then((res) => {
-        setlistMock(res.data.notices);
+        setlistMock(res.data);
       });
     setactivePage(pageNumber);
   };
@@ -59,7 +59,6 @@ const Notice = () => {
 
   return (
     <>
-      <div className="nav">NAV</div>
       <div className="notice">
         <div className="noticeTitle">
           <span>Notice</span>
@@ -80,7 +79,7 @@ const Notice = () => {
               />
             </div>
             <div className="writing">
-              <Link>글쓰기</Link>
+              <Link to="/NoticeWriting">글쓰기</Link>
             </div>
           </div>
           <div className="listTitle">
@@ -101,8 +100,8 @@ const Notice = () => {
             <Pagination
               activePage={activePage}
               itemsCountPerPage={5}
-              totalItemsCount={Math.ceil(listMock.total_notices)}
-              pageRangeDisplayed={Math.ceil(listMock.total_notices / 5)}
+              totalItemsCount={listMock.total_notices}
+              pageRangeDisplayed={5}
               hideFirstLastPages
               itemClassPrev={"prevPageText"}
               itemClassNext={"nextPageText"}
