@@ -39,7 +39,7 @@ class Routes extends Component {
                   <Route exact path="/Signup" component={SignUp} />
                   <Route exact path="/Profile" component={EditUserInfo} />
                   <Route exact path="/Footer" component={Footer} />
-                  <Route exact path="/Side" component={Side} />\
+                  <Route exact path="/Side" component={Side} />
                 </>
               )}
             />
