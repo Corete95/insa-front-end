@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { AiOutlineRight } from "react-icons/ai";
 import ProjectComponet from "../../components/ProjectComponent/ProjectCompnonent";
 import { API } from "../../config";
+import { Link } from "react-router-dom";
 import "./Main.scss";
 
 const Main = () => {
@@ -26,7 +27,7 @@ const Main = () => {
   }, []);
 
   console.log(mainProjectList);
-
+  console.log(noticeContents);
   return (
     <Container>
       <NoticeContainer>
@@ -36,11 +37,11 @@ const Main = () => {
         <ul>
           {noticeContents?.map((element) => {
             return (
-              <li>
+              <Link to={`/NoticeDetailPage/${element.id}`}>
                 <span className="title">{element.title}</span>
                 <p>{element.content}</p>
                 <span className="date">{element.date}</span>
-              </li>
+              </Link>
             );
           })}
         </ul>
@@ -84,7 +85,7 @@ const NoticeContainer = styled.div`
     display: flex;
     justify-content: space-between;
 
-    li {
+    a {
       list-style: none;
       margin-left: 40px;
       width: 270px;
