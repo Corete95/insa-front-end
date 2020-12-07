@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { Link, useParams, useHistory, useLocation } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { FiPaperclip } from "react-icons/fi";
+import { CY_NOTICE_API } from "../../config";
 import axios from "axios";
-import { MdArchive } from "react-icons/md";
 
 const mockData = {
   title: "데이터 로딩 중 입니다",
@@ -11,8 +11,9 @@ const mockData = {
   content: "데이터 로딩 중 입니다"
 };
 
-const NoticeDetailPage = ({ match }) => {
+const NoticeDetailPage = ({ match, history }) => {
   const [noticeData, setNoticeData] = useState(mockData);
+  const [idNumber, setIdNumber] = useState(null);
   const [noticePrevious, setNoticePrevious] = useState(mockData);
   const [noticeNext, setNoticeNext] = useState(mockData);
   const [isInEditMode, setIsInEditMode] = useState(false);
@@ -77,8 +78,9 @@ const NoticeDetailPage = ({ match }) => {
 
   useEffect(() => {
     axios
-      .get(`http://192.168.0.139:8000/notice/detail/${42}`)
+      .get(`${CY_NOTICE_API}/notice/detail/${match.params.id}`)
       .then((response) => {
+        setIdNumber(match.params.id);
         setNoticeData(response.data.notice);
         setNoticePrevious(response.data.previous);
         setNoticeNext(response.data.next);
@@ -86,17 +88,28 @@ const NoticeDetailPage = ({ match }) => {
       .catch((response) => {
         console.log("error");
       });
-  }, []);
+  }, [idNumber]);
 
   const resultPhotoData = noticeData.attachments?.filter((element) => {
     let result;
     return (result = element.includes("+image/jpeg"));
   });
 
-  console.log("이건 히스토리", useHistory());
-  console.log("이건 파람스", useParams());
-  console.log("이건 로케이션", useLocation());
-  console.log("이건 매치", match.path);
+  const removePage = async () => {
+    if (
+      window.confirm(
+        "해당 게시물을 삭제하시겠습니까? \n삭제된 데이터는 복구할 수 없습니다."
+      )
+    ) {
+      await axios.post(`${CY_NOTICE_API}/notice/detail/`, {
+        body: match.params.id
+      });
+      alert("게시물이 삭제되었습니다.");
+      return (window.location.href = "/Notice");
+    }
+  };
+
+  console.log("이 파람스에는 데이터 객체가 존재할까?", match.params.id);
 
   return (
     <NoticeWhiteBackground>
@@ -106,7 +119,7 @@ const NoticeDetailPage = ({ match }) => {
       <NoticePageContainer>
         <div className="upperButton">
           {isInEditMode ? changingEditButton() : defaultEditButton()}
-          <button>삭제</button>
+          <button onClick={removePage}>삭제</button>
         </div>
         <div className="NoticeWholeContainer">
           <div className="titleContainer">
@@ -133,14 +146,22 @@ const NoticeDetailPage = ({ match }) => {
           <div>
             <BelowInfo>
               <span>이전 글</span>
-              <Link>
-                <span>{noticePrevious?.title}</span>
-              </Link>
+              {match.params.id - 1 !== 0 && (
+                <Link
+                  to={`/NoticeDetailPage/${match.params.id - 1}`}
+                  onClick={() => setIdNumber(idNumber - 1)}
+                >
+                  <span>{noticePrevious?.title}</span>
+                </Link>
+              )}
               <span>{noticePrevious?.created_at}</span>
             </BelowInfo>
             <BelowInfo>
               <span>다음 글</span>
-              <Link>
+              <Link
+                to={`/NoticeDetailPage/${Number(match.params.id) + 1}`}
+                onClick={() => setIdNumber(Number(idNumber) + 1)}
+              >
                 <span>{noticeNext?.title}</span>
               </Link>
               <span>{noticeNext?.created_at}</span>

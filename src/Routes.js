@@ -12,7 +12,7 @@ import Nav from "./components/Nav/Nav";
 import Side from "./components/Side/Side";
 import NoticeDetailPage from "./pages/Notice/NoticeDetailPage";
 import { CookiesProvider } from "react-cookie";
-import SignUp from "./components/SignUpComponents/SignUpComponents";
+import SignUp from "./pages/Login/SignUpComponents";
 
 class Routes extends Component {
   render() {
@@ -38,12 +38,11 @@ class Routes extends Component {
                   />
                   <Route
                     exact
-                    path="/NoticeDetailPage"
+                    path="/NoticeDetailPage/:id"
                     component={NoticeDetailPage}
                   />
                   <Route exact path="/Signup" component={SignUp} />
                   <Route exact path="/Profile" component={EditUserInfo} />
-                  <Route exact path="/Footer" component={Footer} />
                 </>
               )}
             />

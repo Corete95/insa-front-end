@@ -1,6 +1,6 @@
 import React from "react";
 
-const listinfo = ({ listMock, key }) => {
+const listinfo = ({ listMock, key, pageId }) => {
   return (
     <div className="listBox" key={key}>
       <div className="noNumber">

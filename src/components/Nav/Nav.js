@@ -6,16 +6,18 @@ import { FaRegUser } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import "./Nav.scss";
 
-const Nav = () => {
-  const menuNames = [
-    "프로젝트",
-    "공지사항",
-    "일정관리",
-    "회의실 예약",
-    "근태관리",
-    "임직원관리"
-  ];
+const menuNames = [
+  "프로젝트",
+  "공지사항",
+  "일정관리",
+  "회의실 예약",
+  "근태관리",
+  "임직원관리"
+];
 
+const linkAddress = ["/Project", "/Notice"];
+
+const Nav = () => {
   return (
     <>
       <NavContainer>
@@ -25,8 +27,8 @@ const Nav = () => {
           </Link>
         </NavLeftContainer>
         <NavCenterContainer>
-          {menuNames.map((names) => {
-            return <Link>{names}</Link>;
+          {menuNames.map((names, idx) => {
+            return <Link to={linkAddress[idx]}>{names}</Link>;
           })}
         </NavCenterContainer>
         <NavRightContainer>

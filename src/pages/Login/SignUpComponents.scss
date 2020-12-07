@@ -6,12 +6,19 @@
   bottom: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.9);
-
+  background: #ffffff 0% 0% no-repeat padding-box;
+  opacity: 0.9;
+  z-index: 100;
   .iconX {
     display: flex;
     justify-content: flex-end;
     padding: 39px 46px 0 0;
+    .Xicon {
+      width: 42px;
+      height: 42px;
+      font-size: 50px;
+      cursor: pointer;
+    }
   }
 
   .textArea {

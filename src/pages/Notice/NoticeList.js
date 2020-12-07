@@ -5,7 +5,7 @@ const NoticeList = ({ listMock }) => {
   return (
     <div>
       {listMock.notices?.map((listMock, idx) => (
-        <Listinfo listMock={listMock} key={idx} />
+        <Listinfo listMock={listMock} key={idx} pageId />
       ))}
     </div>
   );
