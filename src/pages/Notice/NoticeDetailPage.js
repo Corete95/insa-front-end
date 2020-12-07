@@ -86,7 +86,7 @@ const NoticeDetailPage = ({ match }) => {
         setNoticeNext(response.data.next);
       })
       .catch((response) => {
-        console.log("error");
+        alert("데이터를 불러 올 수 없음");
       });
   }, [idNumber]);
 
@@ -110,8 +110,6 @@ const NoticeDetailPage = ({ match }) => {
       return (window.location.href = "/Notice");
     }
   };
-
-  console.log("이 파람스에는 데이터 객체가 존재할까?", match.params.id);
 
   return (
     <NoticeWhiteBackground>
