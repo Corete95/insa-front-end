@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useParams, useHistory, useLocation } from "react-router-dom";
 import { FiPaperclip } from "react-icons/fi";
 import axios from "axios";
+import { MdArchive } from "react-icons/md";
 
 const mockData = {
   title: "데이터 로딩 중 입니다",
@@ -10,8 +11,10 @@ const mockData = {
   content: "데이터 로딩 중 입니다"
 };
 
-const NoticeDetailPage = () => {
+const NoticeDetailPage = ({ match }) => {
   const [noticeData, setNoticeData] = useState(mockData);
+  const [noticePrevious, setNoticePrevious] = useState(mockData);
+  const [noticeNext, setNoticeNext] = useState(mockData);
   const [isInEditMode, setIsInEditMode] = useState(false);
 
   const demoInputRef = useRef();
@@ -44,7 +47,7 @@ const NoticeDetailPage = () => {
 
   const EditTitle = () => {
     return (
-      <input
+      <EditTitleTag
         type="text"
         value={noticeData?.title}
         ref={demoInputRef}
@@ -55,7 +58,7 @@ const NoticeDetailPage = () => {
 
   const EditContent = () => {
     return (
-      <input
+      <EditContentTag
         type="text"
         value={noticeData?.content}
         ref={demoInputRef}
@@ -74,9 +77,11 @@ const NoticeDetailPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.0.139:8000/notice/detail/42")
+      .get(`http://192.168.0.139:8000/notice/detail/${42}`)
       .then((response) => {
         setNoticeData(response.data.notice);
+        setNoticePrevious(response.data.previous);
+        setNoticeNext(response.data.next);
       })
       .catch((response) => {
         console.log("error");
@@ -84,10 +89,14 @@ const NoticeDetailPage = () => {
   }, []);
 
   const resultPhotoData = noticeData.attachments?.filter((element) => {
-    element.includes("+image/jpeg");
+    let result;
+    return (result = element.includes("+image/jpeg"));
   });
 
-  console.log("데이터 형식 확인", noticeData);
+  console.log("이건 히스토리", useHistory());
+  console.log("이건 파람스", useParams());
+  console.log("이건 로케이션", useLocation());
+  console.log("이건 매치", match.path);
 
   return (
     <NoticeWhiteBackground>
@@ -115,24 +124,26 @@ const NoticeDetailPage = () => {
               })}
             </p>
             <button className="addFile">
-              <FiPaperclip />
-              &nbsp; 파일 첨부
+              <Link download>
+                <FiPaperclip />
+                &nbsp; 파일 첨부
+              </Link>
             </button>
           </div>
           <div>
             <BelowInfo>
               <span>이전 글</span>
               <Link>
-                <span>제목 샘플</span>
+                <span>{noticePrevious?.title}</span>
               </Link>
-              <span>2020-11-25</span>
+              <span>{noticePrevious?.created_at}</span>
             </BelowInfo>
             <BelowInfo>
               <span>다음 글</span>
               <Link>
-                <span>제목 샘플</span>
+                <span>{noticeNext?.title}</span>
               </Link>
-              <span>2020-11-25</span>
+              <span>{noticeNext?.created_at}</span>
             </BelowInfo>
           </div>
         </div>
@@ -258,4 +269,17 @@ const ListButtonTag = styled.div`
     background-color: #000000;
     border-radius: 60px / 50px;
   }
+`;
+
+const EditTitleTag = styled.input`
+  width: 90%;
+  height: 33px;
+  font-size: 24px;
+  font-weight: bold;
+  border-style: none none solid none;
+`;
+
+const EditContentTag = styled.textarea`
+  width: 100%;
+  height: 415px;
 `;
