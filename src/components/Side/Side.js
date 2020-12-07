@@ -64,6 +64,10 @@ const Side = () => {
       "working_hours",
       new Date(Date.now() - startTimeCookies.start_time)
     );
+
+    axios.post("url", {
+      body: startTimeCookies.start_time
+    });
   };
 
   useEffect(() => {
@@ -81,6 +85,10 @@ const Side = () => {
       setPersistState(true);
       setWorkingToken("working_token", "onWorking");
       setReStartTimeCookies("restart_time", Date.now());
+
+      axios.post("url", {
+        body: reStartTimeCookies.restart_time - pauseTimeCookies.pause_time
+      });
     }
   };
 
@@ -99,11 +107,21 @@ const Side = () => {
     removeWorkingToken("working_token");
     setWorkingHoursCookies("working_hours", new Date(0));
     setFinishTimeCookies("finish_time", Date.now());
+    axios.post("url", {
+      body: finishTimeCookies.finish_time
+    });
+
     removeStartTimeCookies("start_time");
     removePauseTimeCookies("pause_time");
     removeReStartTimeCookies("restart_time");
     clearTimeout(interval.current);
   };
+
+  useEffect(() => {
+    axios.post("url", {
+      body: "출퇴근 시간 기록할 건데..."
+    });
+  }, []);
 
   return (
     <SideBarContainer>
