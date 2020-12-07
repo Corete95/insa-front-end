@@ -90,10 +90,16 @@ const NoticeDetailPage = ({ match }) => {
       });
   }, [idNumber]);
 
+  console.log(noticeData.attachments);
+
   const resultPhotoData = noticeData.attachments?.filter((element) => {
     let result;
     return (result = element.includes("+image/jpeg"));
   });
+
+  const filesDownload = () => {
+    let urlArray = noticeData.attachments;
+  };
 
   const removePage = async () => {
     if (
