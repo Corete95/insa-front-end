@@ -11,7 +11,7 @@ import Footer from "./components/Footer/Footer";
 import Nav from "./components/Nav/Nav";
 import Side from "./components/Side/Side";
 import { CookiesProvider } from "react-cookie";
-import SignUp from "./components/SignUpComponents/SignUpComponents";
+import SignUp from "./pages/Login/SignUpComponents";
 
 class Routes extends Component {
   render() {
@@ -36,7 +36,6 @@ class Routes extends Component {
                     component={NoticeWriting}
                   />
                   <Route exact path="/Nav" component={Nav} />
-                  <Route exact path="/Signup" component={SignUp} />
                   <Route exact path="/Profile" component={EditUserInfo} />
                   <Route exact path="/Footer" component={Footer} />
                   <Route exact path="/Side" component={Side} />
