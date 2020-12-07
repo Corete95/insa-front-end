@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Project.scss";
 import { BsSearch, BsGrid, BsPlus } from "react-icons/bs";
 import { MdSort } from "react-icons/md";
-import ProjectComponet from "../../components/ProjectComponent/ProjectCompnonent";
+import ProjectComponent from "../../components/ProjectComponent/ProjectCompnonent";
 import ProjectList from "../../components/ProjectComponent/ProjectList";
 import { YJ_API } from "../../config";
 
@@ -99,8 +99,8 @@ const Project = () => {
           {searchResults.map((project_data) => {
             if (listMenu === true) {
               return (
-                <ProjectComponet
-                  key={project_data.id}
+                <ProjectComponent
+                  key={project_data.allList}
                   id={project_data.id}
                   title={project_data.title}
                   description={project_data.description}
@@ -110,7 +110,7 @@ const Project = () => {
             } else {
               return (
                 <ProjectList
-                  key={project_data.id}
+                  key={project_data.listedMenu}
                   id={project_data.id}
                   title={project_data.title}
                   participants={project_data.participants}
@@ -124,8 +124,8 @@ const Project = () => {
           {bookmark.map((bookmark) => {
             if (listMenu === true) {
               return (
-                <ProjectComponet
-                  key={bookmark.id}
+                <ProjectComponent
+                  key={bookmark.bookmarkList}
                   id={bookmark.id}
                   title={bookmark.title}
                   description={bookmark.description}
@@ -135,7 +135,7 @@ const Project = () => {
             } else {
               return (
                 <ProjectList
-                  key={bookmark.id}
+                  key={bookmark.listedMenu}
                   id={bookmark.id}
                   title={bookmark.title}
                   participants={bookmark.participants}
