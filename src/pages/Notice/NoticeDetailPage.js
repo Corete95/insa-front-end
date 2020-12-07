@@ -139,7 +139,13 @@ const NoticeDetailPage = ({ match }) => {
                 if (element.includes("+image/jpeg")) {
                   element = element.replaceAll("+image/jpeg", "");
                 }
-                return <img src={element} alt="공지사항 사진입니다." />;
+                return (
+                  <img
+                    className="filesImg"
+                    src={element}
+                    alt="공지사항 사진입니다."
+                  />
+                );
               })}
             </p>
             <button className="addFile">
@@ -185,8 +191,7 @@ const NoticeDetailPage = ({ match }) => {
 export default NoticeDetailPage;
 
 const NoticeWhiteBackground = styled.div`
-  margin-left: 315px;
-  width: 1416px;
+  padding-left: 315px;
   background-color: #ffffff;
   z-index: -700;
 
@@ -260,8 +265,11 @@ const NoticePageContainer = styled.section`
       p {
         font-size: 16px;
         line-height: 1.5em;
-      }
 
+        .filesImg {
+          width: 100%;
+        }
+      }
       .addFile {
         margin-top: 60px;
       }
