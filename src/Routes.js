@@ -10,6 +10,7 @@ import EditUserInfo from "./pages/EditUserInfo/EditUserInfo";
 import Footer from "./components/Footer/Footer";
 import Nav from "./components/Nav/Nav";
 import Side from "./components/Side/Side";
+import NoticeDetailPage from "./pages/Notice/NoticeDetailPage";
 import { CookiesProvider } from "react-cookie";
 import SignUp from "./pages/Login/SignUpComponents";
 
@@ -35,10 +36,13 @@ class Routes extends Component {
                     path="/NoticeWriting"
                     component={NoticeWriting}
                   />
-                  <Route exact path="/Nav" component={Nav} />
+                  <Route
+                    exact
+                    path="/NoticeDetailPage/:id"
+                    component={NoticeDetailPage}
+                  />
+                  <Route exact path="/Signup" component={SignUp} />
                   <Route exact path="/Profile" component={EditUserInfo} />
-                  <Route exact path="/Footer" component={Footer} />
-                  <Route exact path="/Side" component={Side} />
                 </>
               )}
             />
