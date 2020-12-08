@@ -3,7 +3,6 @@ import { Link, withRouter, useHistory } from "react-router-dom";
 import { API } from "../../config";
 import "./Login.scss";
 import Privacy from "./Privacy";
-import Main from "../Main/Main";
 
 function Login(props) {
   const history = useHistory();
@@ -37,15 +36,12 @@ function Login(props) {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         if (checked === true) {
           localStorage.setItem("token", res.token);
           history.push("/Main");
-          alert("로그인 유지!");
         } else {
           window.sessionStorage.setItem("token", res.token);
           history.push("/Main");
-          alert("로그인 유지 아님!!");
         }
       });
   };
