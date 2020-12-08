@@ -13,6 +13,7 @@ const mockData = {
 };
 
 const NoticeDetailPage = ({ match }) => {
+  const [data, setData] = useState({});
   const [noticeData, setNoticeData] = useState(mockData);
   const [idNumber, setIdNumber] = useState(null);
   const [noticePrevious, setNoticePrevious] = useState(mockData);
@@ -23,19 +24,6 @@ const NoticeDetailPage = ({ match }) => {
 
   const changeEditMode = () => {
     setIsInEditMode(!isInEditMode);
-
-    axios.patch(
-      `${API}/notice/detail/${match.params.id}`,
-      {
-        data: {
-          ...noticeData,
-          content: noticeData.content
-        }
-      },
-      {
-        headers: { Authorization: localStorage.getItem("token") }
-      }
-    );
   };
 
   const onChangeTitle = (e) => {
@@ -97,9 +85,11 @@ const NoticeDetailPage = ({ match }) => {
       })
       .then((response) => {
         setIdNumber(match.params.id);
+        setData(response.data);
         setNoticeData(response.data.notice);
         setNoticePrevious(response.data.previous);
         setNoticeNext(response.data.next);
+        console.log(response.data);
       })
       .catch((response) => {
         console.log("error");
