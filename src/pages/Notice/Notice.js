@@ -13,12 +13,22 @@ const Notice = () => {
   const [inputMock, setinputMock] = useState([]);
 
   useEffect(() => {
-    axios.get(`${API}/notice/list`).then((res) => setlistMock(res.data));
+    axios
+      .get(`${API}/notice/list`, {
+        headers: {
+          Authorization: localStorage.getItem("token")
+        }
+      })
+      .then((res) => setlistMock(res.data));
   }, []);
 
   const handlePageChange = (pageNumber) => {
     axios
-      .get(`${API}/notice/list?offset=${(pageNumber - 1) * 5}`)
+      .get(`${API}/notice/list?offset=${(pageNumber - 1) * 5}`, {
+        headers: {
+          Authorization: localStorage.getItem("token")
+        }
+      })
       .then((res) => {
         setlistMock(res.data);
         setinputMock(res.data);
@@ -33,9 +43,15 @@ const Notice = () => {
   };
 
   const searchChange = () => {
-    axios.get(`${API}/notice/list?search=${inputValue}`).then((res) => {
-      setlistMock(res.data);
-    });
+    axios
+      .get(`${API}/notice/list?search=${inputValue}`, {
+        headers: {
+          Authorization: localStorage.getItem("token")
+        }
+      })
+      .then((res) => {
+        setlistMock(res.data);
+      });
   };
 
   // useEffect(() => {

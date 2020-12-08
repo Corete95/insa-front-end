@@ -70,7 +70,7 @@ const NoticeWriting = () => {
     })
       .then((res) => {
         setnoticeProps(res.data);
-        history.push(`/NoticeDetailPage/${noticeProps.notice.id}`);
+        history.push(`/NoticeDetailPage/${noticeProps.id}`);
       })
       .catch((error) => {
         console.log(error.response);
@@ -78,7 +78,7 @@ const NoticeWriting = () => {
   };
 
   console.log("밖", files);
-  console.log("noticeProps", noticeProps);
+  console.log("asdasdas", noticeProps);
   return (
     <>
       {console.log("in return files", files)}
