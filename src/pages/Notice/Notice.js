@@ -10,6 +10,7 @@ const Notice = () => {
   const [listMock, setlistMock] = useState([]);
   const [activePage, setactivePage] = useState(1);
   const [inputValue, setinputValue] = useState([]);
+  const [inputMock, setinputMock] = useState([]);
 
   useEffect(() => {
     axios.get(`${API}/notice/list`).then((res) => setlistMock(res.data));
@@ -20,6 +21,7 @@ const Notice = () => {
       .get(`${API}/notice/list?offset=${(pageNumber - 1) * 5}`)
       .then((res) => {
         setlistMock(res.data);
+        setinputMock(res.data);
       });
     setactivePage(pageNumber);
   };
@@ -33,7 +35,6 @@ const Notice = () => {
   const searchChange = () => {
     axios.get(`${API}/notice/list?search=${inputValue}`).then((res) => {
       setlistMock(res.data);
-      console.log(res.data);
     });
   };
 

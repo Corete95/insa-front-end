@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import UserInfo from "../../components/Profile/UserInfo";
+import { Link } from "react-router-dom";
 import "./EditUserInfo.scss";
 
 const EditUserInfo = () => {
@@ -204,8 +205,8 @@ const EditUserInfo = () => {
         <input className="addressField"></input>
       </div>
       <div className="editBtnArea">
-        <button>뒤로</button>
-        <button className="editBtn">수정</button>
+        <Link className="backBtn">뒤로</Link>
+        <Link className="editBtn">수정</Link>
       </div>
     </div>
   );

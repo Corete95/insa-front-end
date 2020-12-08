@@ -35,7 +35,7 @@ const Nav = () => {
           <Link>
             <FiMail />
           </Link>
-          <Link>
+          <Link to="/Profile">
             <FaRegUser />
           </Link>
         </NavRightContainer>
