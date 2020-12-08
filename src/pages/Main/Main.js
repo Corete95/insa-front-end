@@ -57,7 +57,8 @@ const Main = () => {
                 idx={idx}
                 id={element.id}
                 title={element.title}
-                member={element.member}
+                member={element.participants}
+                icon={element.is_private}
                 description={element.description}
                 start_date={element.start_date}
                 end_date={element.end_date}
