@@ -4,7 +4,7 @@ import { BsSearch, BsGrid, BsPlus } from "react-icons/bs";
 import { MdSort } from "react-icons/md";
 import ProjectComponent from "../../components/ProjectComponent/ProjectCompnonent";
 import ProjectList from "../../components/ProjectComponent/ProjectList";
-import { YJ_API } from "../../config";
+import { API } from "../../config";
 
 const Project = () => {
   const [project_data, SetProject] = useState([]);
@@ -15,7 +15,7 @@ const Project = () => {
   const [searchResults, SetSearchResults] = useState([]);
 
   useEffect(() => {
-    fetch(`${YJ_API}/project/list`, {
+    fetch(`${API}/project/list`, {
       headers: {
         Authorization: localStorage.getItem("token")
       }
@@ -26,20 +26,21 @@ const Project = () => {
       });
   }, []);
 
-  useEffect(() => {
-    if (focusedMenu !== "bookmark") {
-      return;
-    }
-    fetch(`${YJ_API}/project/like`, {
-      headers: {
-        Authorization: localStorage.getItem("token")
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        SetBookmark(data.like_list);
-      });
-  }, [focusedMenu]);
+  // useEffect(() => {
+  //   if (focusedMenu !== "bookmark") {
+  //     return;
+  //   }
+  //   fetch(`${API}/project/like`, {
+  //     method: "POST",
+  //     headers: {
+  //       Authorization: localStorage.getItem("token")
+  //     }
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       SetBookmark(data.like_list);
+  //     });
+  // }, [focusedMenu]);
 
   const handleBtnColor = (e) => {
     SetFocusedMenu(e.target.id);

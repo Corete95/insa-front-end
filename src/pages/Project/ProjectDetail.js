@@ -18,7 +18,7 @@ const ProjectDetail = () => {
 
     axios({
       method: "POST",
-      url: `${API}/project/detail`,
+      url: `${API}/project/detail/project_id`,
       data: formdata,
       headers: { "Content-Type": "multipart/form-data" }
     })
