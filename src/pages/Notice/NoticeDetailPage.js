@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FiPaperclip } from "react-icons/fi";
 import { API } from "../../config";
 import axios from "axios";
+import { BsCardImage } from "react-icons/bs";
 
 const mockData = {
   title: "데이터 로딩 중 입니다",
@@ -86,7 +87,7 @@ const NoticeDetailPage = ({ match }) => {
         setNoticeNext(response.data.next);
       })
       .catch((response) => {
-        alert("데이터를 불러 올 수 없음");
+        console.log("error");
       });
   }, [idNumber]);
 
@@ -94,6 +95,14 @@ const NoticeDetailPage = ({ match }) => {
     let result;
     return (result = element.includes("+image/jpeg"));
   });
+
+  const filesDownload = (idx) => {
+    let url = noticeData.attachments[idx];
+    if (url.includes("+image/jpeg")) {
+      url = url.replaceAll("+image/jpeg", "");
+    }
+    window.open(url);
+  };
 
   const removePage = async () => {
     if (
@@ -143,11 +152,22 @@ const NoticeDetailPage = ({ match }) => {
               })}
             </p>
             <button className="addFile">
-              <Link download>
-                <FiPaperclip />
-                &nbsp; 파일 첨부
-              </Link>
+              <FiPaperclip />
+              &nbsp; 파일 첨부
             </button>
+            <div>
+              {resultPhotoData?.map((element, idx) => {
+                if (element.includes("+image/jpeg")) {
+                  element = element.replaceAll("+image/jpeg", "");
+                }
+                return (
+                  <DownloadFile onClick={() => filesDownload(idx)}>
+                    <BsCardImage className="icon" />
+                    <span>이미지 파일</span>
+                  </DownloadFile>
+                );
+              })}
+            </div>
           </div>
           <div>
             <BelowInfo>
@@ -311,4 +331,22 @@ const EditTitleTag = styled.input`
 const EditContentTag = styled.textarea`
   width: 100%;
   height: 415px;
+`;
+
+const DownloadFile = styled.div`
+  display: inline-block;
+  padding: 15px;
+  align-items: center;
+  margin-top: 10px;
+  width: 150px;
+  height: 60px;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 15px;
+
+  .icon {
+    padding-top: 5px;
+    font-size: 20px;
+    margin-right: 5px;
+  }
 `;
