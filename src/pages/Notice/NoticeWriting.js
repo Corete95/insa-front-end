@@ -67,13 +67,13 @@ const NoticeWriting = () => {
       url: `${API}/notice/detail`,
       data: formdata,
       headers: {
-        Authorization: localStorage.getItem("token"),
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
+        Authorization: localStorage.getItem("token")
       }
     })
       .then((res) => {
         setnoticeProps(res.data);
-        history.push(`/NoticeDetailPage/${noticeProps.id}`);
+        history.push("/Notice");
       })
       .catch((error) => {
         console.log(error.response);
