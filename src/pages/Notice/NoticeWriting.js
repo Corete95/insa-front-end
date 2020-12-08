@@ -33,7 +33,7 @@ const NoticeWriting = () => {
     formdata.append("content", content);
     // formdata.append("attachment", JSON.stringfy(files));
     Array.from(files).forEach((file) => {
-      formdata.append("attachment", file);
+      formdata.append("attachment", file, file.name);
     });
     for (var value of formdata.values()) {
       console.log("formdata.values", value);
