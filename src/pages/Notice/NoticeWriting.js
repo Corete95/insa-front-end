@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 import { API } from "../../config";
 import axios from "axios";
 import "./NoticeWriting.scss";
 
 const NoticeWriting = () => {
+  const history = useHistory();
   const [title, settitle] = useState("");
   const [content, setcontent] = useState("");
   const [files, setfiles] = useState([]);
@@ -17,7 +18,6 @@ const NoticeWriting = () => {
   //   setfiles({ ...files, [e.target.name]: e.target.files });
   // };
   const filesChange = (e) => {
-    // setfiles([...files, ...{ [e.target.name]: e.target.files }]);
     console.log("e.target.name", e.target.name);
     console.log("e.target.files", e.target.files);
     console.log("typeof e.target.files", typeof e.target.files);
@@ -70,6 +70,7 @@ const NoticeWriting = () => {
     })
       .then((res) => {
         setnoticeProps(res.data);
+        history.push(`/NoticeDetailPage/${noticeProps.notice.id}`);
       })
       .catch((error) => {
         console.log(error.response);
@@ -131,4 +132,4 @@ const NoticeWriting = () => {
   );
 };
 
-export default NoticeWriting;
+export default withRouter(NoticeWriting);

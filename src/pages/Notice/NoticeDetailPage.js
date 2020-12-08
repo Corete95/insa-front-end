@@ -213,11 +213,11 @@ const NoticePageContainer = styled.section`
     justify-content: flex-end;
 
     button {
-      margin-right: 10px;
+      margin-right: 6px;
       padding: 0px;
       width: 40px;
-      border-bottom: 1px solid black;
-      font-size: 15px;
+      text-decoration: underline;
+      font-size: 14px;
       cursor: pointer;
     }
 

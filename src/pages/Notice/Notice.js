@@ -33,7 +33,6 @@ const Notice = () => {
   const searchChange = () => {
     axios.get(`${API}/notice/list?search=${inputValue}`).then((res) => {
       setlistMock(res.data);
-      console.log(res.data);
     });
   };
 
