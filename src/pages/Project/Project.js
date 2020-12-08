@@ -19,7 +19,14 @@ const Project = () => {
       .then((res) => res.json())
       .then((data) => {
         SetProject(data.main_list);
-        SetBookmark(data.like_project_list);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`${YJ_API}/project/like`)
+      .then((res) => res.json())
+      .then((data) => {
+        SetBookmark(data.like_list);
       });
   }, []);
 
@@ -96,11 +103,11 @@ const Project = () => {
             )}
           </div>
 
-          {searchResults.map((project_data) => {
+          {searchResults.map((project_data, idx) => {
             if (listMenu === true) {
               return (
                 <ProjectComponent
-                  key={project_data.allList}
+                  key={project_data.id + "allProject" + idx}
                   id={project_data.id}
                   title={project_data.title}
                   description={project_data.description}
@@ -110,7 +117,7 @@ const Project = () => {
             } else {
               return (
                 <ProjectList
-                  key={project_data.listedMenu}
+                  key={project_data.id + "listedMenu" + idx}
                   id={project_data.id}
                   title={project_data.title}
                   participants={project_data.participants}
@@ -121,11 +128,11 @@ const Project = () => {
         </div>
       ) : (
         <div className="bookmarkedProject">
-          {bookmark.map((bookmark) => {
+          {bookmark.map((bookmark, idx) => {
             if (listMenu === true) {
               return (
                 <ProjectComponent
-                  key={bookmark.bookmarkList}
+                  key={bookmark.id + "bookmarkMenu" + idx}
                   id={bookmark.id}
                   title={bookmark.title}
                   description={bookmark.description}
@@ -135,7 +142,7 @@ const Project = () => {
             } else {
               return (
                 <ProjectList
-                  key={bookmark.listedMenu}
+                  key={bookmark.id + "bookmarkList" + idx}
                   id={bookmark.id}
                   title={bookmark.title}
                   participants={bookmark.participants}

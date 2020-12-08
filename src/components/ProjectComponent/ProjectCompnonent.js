@@ -22,6 +22,8 @@ const ProjectComponet = ({
     });
   };
 
+  console.log(">>>", id);
+
   return (
     <div className="gridProjectComponent">
       <div className="projectContent">
