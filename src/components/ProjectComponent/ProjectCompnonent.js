@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
 import { YJ_API } from "../../config";
+import { useHistory } from "react-router-dom";
 import "./ProjectComponent.scss";
 
 const ProjectComponet = ({
@@ -10,10 +11,10 @@ const ProjectComponet = ({
   participants,
   description,
   start_date,
-  end_date,
-  icon
+  end_date
 }) => {
   const [isLiked, setIsLiked] = useState(false);
+  const history = useHistory();
 
   const handleBookmark = () => {
     setIsLiked(!isLiked);
@@ -23,11 +24,16 @@ const ProjectComponet = ({
     });
   };
 
-  console.log(">>>", id);
+  const goToDetail = () => {
+    history.push(`/ProjectDetail/${id}`);
+    alert("이동!");
+  };
+
+  console.log(id);
 
   return (
     <div className="gridProjectComponent">
-      <div className="projectContent">
+      <div className="projectContent" onClick={goToDetail}>
         <h3>{title}</h3>
       </div>
       <div className="projectContentContainer">

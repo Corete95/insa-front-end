@@ -15,7 +15,11 @@ const Project = () => {
   const [searchResults, SetSearchResults] = useState([]);
 
   useEffect(() => {
-    fetch(`${YJ_API}/project/list`)
+    fetch(`${YJ_API}/project/list`, {
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    })
       .then((res) => res.json())
       .then((data) => {
         SetProject(data.main_list);
@@ -23,12 +27,19 @@ const Project = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`${YJ_API}/project/like`)
+    if (focusedMenu !== "bookmark") {
+      return;
+    }
+    fetch(`${YJ_API}/project/like`, {
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    })
       .then((res) => res.json())
       .then((data) => {
         SetBookmark(data.like_list);
       });
-  }, []);
+  }, [focusedMenu]);
 
   const handleBtnColor = (e) => {
     SetFocusedMenu(e.target.id);
@@ -50,8 +61,6 @@ const Project = () => {
       ? SetSearchResults(project_data)
       : SetSearchResults(results);
   }, [searchTerm, project_data, bookmark]);
-
-  console.log(bookmark);
 
   return (
     <div className="Project">
