@@ -8,13 +8,13 @@ function Login(props) {
   const [checked, setChecked] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [signupModal, setsignupModal] = useState(false);
+  const [privacyModal, setprivacyModal] = useState(false);
 
-  const isSignupModalOpen = () => {
-    setsignupModal(true);
+  const isPrivacyModalOpen = () => {
+    setprivacyModal(true);
   };
-  const isSignupModalClose = () => {
-    setsignupModal(false);
+  const isPrivacyModalClose = () => {
+    setprivacyModal(false);
   };
 
   const handleEmail = (e) => {
@@ -36,12 +36,12 @@ function Login(props) {
       .then((res) => res.json())
       .then((res) => {
         if (checked === true) {
-          localStorage.setItem("token", res.Authorization);
+          localStorage.setItem("token", res.token);
           console.log("asdas");
           props.history.push("/Main");
           alert("로그인 유지!");
         } else {
-          window.sessionStorage.setItem("token", res.Authorization);
+          window.sessionStorage.setItem("token", res.token);
 
           alert("로그인 유지 아님!!");
         }
@@ -50,7 +50,7 @@ function Login(props) {
 
   return (
     <>
-      <Privacy open={signupModal} close={isSignupModalClose} />
+      <Privacy open={privacyModal} close={isPrivacyModalClose} />
       <div className="topMain">
         <div className="topLogo">
           <img alt="insaLogo" src="./images/INSA_LOGO.svg"></img>
@@ -89,7 +89,7 @@ function Login(props) {
             </div>
             <div className="bottomText">
               <div>
-                <span onClick={isSignupModalOpen}>INSA 회원가입</span>
+                <span onClick={isPrivacyModalOpen}>INSA 회원가입</span>
                 <i
                   style={{ cursor: "pointer" }}
                   className="xi-angle-right-min"

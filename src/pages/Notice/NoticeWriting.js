@@ -1,41 +1,89 @@
 import React, { useState } from "react";
+import { Link, withRouter, useHistory } from "react-router-dom";
+import { API } from "../../config";
 import axios from "axios";
 import "./NoticeWriting.scss";
 
 const NoticeWriting = () => {
+  const history = useHistory();
   const [title, settitle] = useState("");
   const [content, setcontent] = useState("");
   const [files, setfiles] = useState([]);
   const [noticeProps, setnoticeProps] = useState([]);
 
+  // const filesChange = (e) => {
+  //   setfiles(e.target.files[0]);
+  // };
+  // const filesChange = (e) => {
+  //   setfiles({ ...files, [e.target.name]: e.target.files });
+  // };
   const filesChange = (e) => {
-    setfiles(e.target.files[0]);
+    console.log("e.target.name", e.target.name);
+    console.log("e.target.files", e.target.files);
+    console.log("typeof e.target.files", typeof e.target.files);
+    console.log("Objective files", Object.values(e.target.files));
+    console.log("Objective value 0th index", Object.values(e.target.files)[0]);
+    setfiles([...Object.values(e.target.files)]);
   };
 
   const uploadData = () => {
+    console.log("files in axios", files);
     const formdata = new FormData();
     formdata.append("title", title);
     formdata.append("content", content);
-    formdata.append("attachment", files);
+    // formdata.append("attachment", JSON.stringfy(files));
+    Array.from(files).forEach((file) => {
+      formdata.append("attachment", file, file.name);
+    });
+    for (var value of formdata.values()) {
+      console.log("formdata.values", value);
+    }
+
+    // const filelist = Object.keys(files).map((key) => [files[key]]);
+    // filelist.forEach((f) => {
+    //   formdata.append("attachment", f);
+    // });
+    // console.log(filelist);
+    // formdata.append("attachment[]", files);
+    // formdata.append("attachment[2]", files);
+    // for (let i = 0; i < files.length; i++) {
+    //   formdata.append("attachment", files.files[i]);
+    // }
+    // for (let i = 0; i < files.length; i++) {
+    //   formdata.append(`attachment[${i}]`, files[i]);
+    // }
+    // files.map((files) => formdata.append("attachment", files));
+
+    // console.log(files);
+    // formdata.attachment = [];
+    // console.log(formdata.attachment);
+    // for (let i = 0; i < files.length; i++) {
+    //   console.log(files[i]);
+    //   formdata.attachment.append(files[i]);
+    // }
 
     axios({
       method: "POST",
-      url: "http://192.168.0.11:8000/notice/detail",
+      url: `${API}/notice/detail`,
       data: formdata,
       headers: { "Content-Type": "multipart/form-data" }
     })
       .then((res) => {
         setnoticeProps(res.data);
+        history.push(`/NoticeDetailPage/${noticeProps.notice.id}`);
       })
       .catch((error) => {
         console.log(error.response);
       });
   };
-  console.log(noticeProps);
+
+  console.log("밖", files);
+  console.log("noticeProps", noticeProps);
   return (
     <>
+      {console.log("in return files", files)}
+      {console.log("in return noticeProps", noticeProps)}
       <div>
-        <div className="nav">NAV</div>
         <div className="noticeWriting">
           <div className="noticeTitle">
             <span>Notice</span>
@@ -60,17 +108,19 @@ const NoticeWriting = () => {
                 </label>
                 <input
                   className="fileUpLoad"
-                  name="files[]"
+                  name="files"
                   id="fileUpLoad"
                   type="file"
                   onChange={filesChange}
                   style={{ display: "none" }}
-                  multiple="multiple"
+                  multiple
                 />
               </div>
             </div>
             <div className="buttonLine">
-              <button className="back">뒤로</button>
+              <Link to="/Notice" className="back">
+                뒤로
+              </Link>
               <button className="reg" onClick={uploadData}>
                 등록
               </button>
@@ -82,4 +132,4 @@ const NoticeWriting = () => {
   );
 };
 
-export default NoticeWriting;
+export default withRouter(NoticeWriting);

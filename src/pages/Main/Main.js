@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { AiOutlineRight } from "react-icons/ai";
 import ProjectComponet from "../../components/ProjectComponent/ProjectCompnonent";
+import { API } from "../../config";
+import { Link } from "react-router-dom";
 import "./Main.scss";
 
 const Main = () => {
@@ -9,7 +11,7 @@ const Main = () => {
   const [mainProjectList, setMainProjectList] = useState([]);
 
   useEffect(() => {
-    fetch("http://192.168.0.11:8000/notice/main")
+    fetch(`${API}/notice/main`)
       .then((response) => response.json())
       .then((data) => {
         setNoticeContents(data.returning_notices);
@@ -17,7 +19,7 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://192.168.0.18:8000/project/main")
+    fetch(`${API}/project/main`)
       .then((response) => response.json())
       .then((data) => {
         setMainProjectList(data.main_list);
@@ -25,7 +27,7 @@ const Main = () => {
   }, []);
 
   console.log(mainProjectList);
-
+  console.log(noticeContents);
   return (
     <Container>
       <NoticeContainer>
@@ -35,11 +37,11 @@ const Main = () => {
         <ul>
           {noticeContents?.map((element) => {
             return (
-              <li>
+              <Link to={`/NoticeDetailPage/${element.id}`}>
                 <span className="title">{element.title}</span>
                 <p>{element.content}</p>
                 <span className="date">{element.date}</span>
-              </li>
+              </Link>
             );
           })}
         </ul>
@@ -55,7 +57,8 @@ const Main = () => {
                 idx={idx}
                 id={element.id}
                 title={element.title}
-                member={element.member}
+                member={element.participants}
+                icon={element.is_private}
                 description={element.description}
                 start_date={element.start_date}
                 end_date={element.end_date}
@@ -83,7 +86,7 @@ const NoticeContainer = styled.div`
     display: flex;
     justify-content: space-between;
 
-    li {
+    a {
       list-style: none;
       margin-left: 40px;
       width: 270px;
@@ -116,7 +119,6 @@ const NoticeContainer = styled.div`
       }
 
       .date {
-        display: inline-block;
         margin: 10px 0px;
         color: #999999;
         font-size: 12px;
@@ -141,7 +143,5 @@ const ProjectContainer = styled.div`
 
   .mainProjectContainer {
     display: flex;
-    justify-content: space-between;
-    margin: 0px 1em 0px -2em;
   }
 `;

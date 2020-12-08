@@ -10,7 +10,8 @@ const ProjectComponet = ({
   participants,
   description,
   start_date,
-  end_date
+  end_date,
+  icon
 }) => {
   const [isLiked, setIsLiked] = useState(false);
 

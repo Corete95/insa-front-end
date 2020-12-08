@@ -9,7 +9,7 @@ import "./Side.scss";
 const stateName = ["근무 중", "식사", "휴식"];
 
 const Side = () => {
-  const [value, onChange] = useState(new Date());
+  const [value, onChange] = useState(() => new Date());
   const [hiddenState, setHiddenState] = useState(false);
   const [userState, setUserState] = useState("근무 중");
 
@@ -197,7 +197,7 @@ const SideBarContainer = styled.aside`
 `;
 
 const Profile = styled.div`
-  margin: 80px 0px 60px 0px;
+  margin: 80px 0px 70px 0px;
   color: #ffffff;
 
   .profileContainer {
@@ -260,7 +260,7 @@ const Profile = styled.div`
 
 const WorkingState = styled.div`
   position: absolute;
-  bottom: 90px;
+  bottom: 0px;
   width: 100%;
 
   .belowButton {

@@ -39,6 +39,7 @@
       color: white;
       background-color: #33508b;
       font-size: 16px;
+      cursor: pointer;
     }
   }
 
@@ -65,11 +66,31 @@
     display: flex;
     justify-content: flex-end;
     margin-top: 105px;
-
+    .backBtn {
+      background: #eeeeee 0% 0% no-repeat padding-box;
+      opacity: 1;
+      margin-bottom: 50px;
+      cursor: pointer;
+      width: 116px;
+      height: 50px;
+      border: none;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .editBtn {
       margin-left: 25px;
       color: white;
       background-color: #303030;
+      cursor: pointer;
+      width: 116px;
+      height: 50px;
+      border: none;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

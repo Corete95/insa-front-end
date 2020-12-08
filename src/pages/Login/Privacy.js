@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Privacy.scss";
+import SignUpComponents from "./SignUpComponents";
 
 const Privacy = ({ open, close }) => {
-  const moveSigniUp = () => {};
+  const [signupModal, setsignupModal] = useState(false);
+
+  const isSignupModalOpen = () => {
+    setsignupModal(true);
+  };
+
+  const isSignupModalClose = () => {
+    setsignupModal(false);
+  };
+
+  const moveSignUp = () => {
+    close();
+    isSignupModalOpen();
+  };
+
   return (
     <>
       {open ? (
@@ -47,13 +62,16 @@ const Privacy = ({ open, close }) => {
               </div>
             </div>
             <div className="buttonBox">
-              <span onClick={moveSigniUp}>
+              <span onClick={moveSignUp}>
                 개인정보 수집 및 이용에 동의합니다. <i class="xi-check"></i>
               </span>
             </div>
           </div>
         </div>
       ) : null}
+      {signupModal && (
+        <SignUpComponents open={signupModal} SignUpClose={isSignupModalClose} />
+      )}
     </>
   );
 };
