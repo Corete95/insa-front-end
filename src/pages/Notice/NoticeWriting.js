@@ -66,7 +66,10 @@ const NoticeWriting = () => {
       method: "POST",
       url: `${API}/notice/detail`,
       data: formdata,
-      headers: { "Content-Type": "multipart/form-data" }
+      headers: {
+        Authorization: localStorage.getItem("token"),
+        "Content-Type": "multipart/form-data"
+      }
     })
       .then((res) => {
         setnoticeProps(res.data);
