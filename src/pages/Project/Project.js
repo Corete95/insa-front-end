@@ -51,6 +51,8 @@ const Project = () => {
       : SetSearchResults(results);
   }, [searchTerm, project_data, bookmark]);
 
+  console.log(bookmark);
+
   return (
     <div className="Project">
       <h1>Project</h1>
