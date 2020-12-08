@@ -34,6 +34,7 @@ const Main = () => {
       });
   }, []);
 
+  console.log(mainProjectList);
   return (
     <Container>
       <NoticeContainer>

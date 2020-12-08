@@ -8,7 +8,7 @@ import "./ProjectComponent.scss";
 const ProjectComponet = ({
   id,
   title,
-  participants,
+  member,
   description,
   start_date,
   end_date
@@ -47,7 +47,7 @@ const ProjectComponet = ({
       </div>
 
       <div className="projectFooter">
-        <p>{participants}명 참여중</p>
+        <p>{member}명 참여중</p>
         <div className="bookmarkIcon" onClick={handleBookmark}>
           {isLiked ? (
             <BsBookmarkFill className="bookmarkFillIcon" />

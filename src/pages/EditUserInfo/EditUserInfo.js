@@ -223,7 +223,9 @@ const EditUserInfo = () => {
         <input className="addressField"></input>
       </div>
       <div className="editBtnArea">
-        <Link className="backBtn">뒤로</Link>
+        <Link to="/Main" className="backBtn">
+          뒤로
+        </Link>
         <Link className="editBtn">수정</Link>
       </div>
     </div>

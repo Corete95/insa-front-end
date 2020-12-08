@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommentList from "./CommentList";
 import { API } from "../../config";
 import axios from "axios";
@@ -8,6 +8,7 @@ const ProjectDetail = () => {
   const [projectData, setprojectData] = useState([]);
   const [content, setcontent] = useState("");
   const [files, setfiles] = useState([]);
+  const [mockData, setmockData] = useState([]);
 
   const commentUpload = () => {
     const formdata = new FormData();
@@ -20,7 +21,10 @@ const ProjectDetail = () => {
       method: "POST",
       url: `${API}/project/detail/project_id`,
       data: formdata,
-      headers: { "Content-Type": "multipart/form-data" }
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: localStorage.getItem("token")
+      }
     })
       .then((res) => {
         setprojectData(res.data);
@@ -33,6 +37,14 @@ const ProjectDetail = () => {
   const filesChange = (e) => {
     setfiles([...Object.values(e.target.files)]);
   };
+
+  useEffect(() => {
+    fetch("http://localhost:3000/data/ProjectMockData.json")
+      .then((res) => res.json())
+      .then((res) => {
+        setmockData(res.project_data);
+      });
+  });
 
   return (
     <>
@@ -85,7 +97,7 @@ const ProjectDetail = () => {
           </div>
           <ul>
             <li>
-              {projectData?.map((data, idx) => (
+              {mockData?.map((data, idx) => (
                 <CommentList data={data} key={idx} />
               ))}
             </li>

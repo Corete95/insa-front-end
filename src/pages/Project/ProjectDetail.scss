@@ -67,7 +67,6 @@
         outline-style: none;
         resize: none;
         background: #ffffff 0% 0% no-repeat padding-box;
-        opacity: 0.8;
         border: none;
       }
       .attachments {
@@ -166,7 +165,6 @@
         .commentCenter {
           margin: 20px 30px;
           height: 200px;
-          background-color: pink;
         }
         .commentFiles {
           display: flex;
@@ -175,7 +173,7 @@
           .file {
             display: flex;
             align-items: center;
-            flex-direction: column;
+            justify-content: center;
             width: 235px;
             height: 100%;
             border: 1px solid #e6e6e6;
