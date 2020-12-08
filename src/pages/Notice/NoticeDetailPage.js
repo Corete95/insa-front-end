@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FiPaperclip } from "react-icons/fi";
 import { API } from "../../config";
 import axios from "axios";
-import { BsCardImage } from "react-icons/bs";
+import { AiOutlineFile } from "react-icons/ai";
 
 const mockData = {
   title: "데이터 로딩 중 입니다",
@@ -81,6 +81,7 @@ const NoticeDetailPage = ({ match }) => {
     axios
       .get(`${API}/notice/detail/${match.params.id}`)
       .then((response) => {
+        console.log(response.data);
         setIdNumber(match.params.id);
         setNoticeData(response.data.notice);
         setNoticePrevious(response.data.previous);
@@ -91,16 +92,21 @@ const NoticeDetailPage = ({ match }) => {
       });
   }, [idNumber]);
 
-  const resultPhotoData = noticeData.attachments?.filter((element) => {
-    let result;
-    return (result = element.includes("+image/jpeg"));
+  let photoFileArr = [];
+  let otherFileArr = [];
+
+  const resultData = noticeData.attachments?.map((element) => {
+    if (element.name.includes("jpg")) {
+      photoFileArr = photoFileArr.concat(element.url);
+      return (photoFileArr = [...new Set(photoFileArr)]);
+    } else {
+      otherFileArr = otherFileArr.concat(element.url);
+      return (otherFileArr = [...new Set(otherFileArr)]);
+    }
   });
 
   const filesDownload = (idx) => {
-    let url = noticeData.attachments[idx];
-    if (url.includes("+image/jpeg")) {
-      url = url.replaceAll("+image/jpeg", "");
-    }
+    let url = noticeData.attachments[idx].url;
     window.open(url);
   };
 
@@ -138,15 +144,12 @@ const NoticeDetailPage = ({ match }) => {
           <div className="NoticeContentsContainer">
             <p>
               {isInEditMode ? EditContent() : defaultContent()}
-              {resultPhotoData?.map((element) => {
-                if (element.includes("+image/jpeg")) {
-                  element = element.replaceAll("+image/jpeg", "");
-                }
+              {photoFileArr?.map((element) => {
                 return (
                   <img
                     className="filesImg"
                     src={element}
-                    alt="공지사항 사진입니다."
+                    alt="공지사항 이미지 입니다."
                   />
                 );
               })}
@@ -155,15 +158,19 @@ const NoticeDetailPage = ({ match }) => {
               <FiPaperclip />
               &nbsp; 파일 첨부
             </button>
-            <div>
-              {resultPhotoData?.map((element, idx) => {
-                if (element.includes("+image/jpeg")) {
-                  element = element.replaceAll("+image/jpeg", "");
-                }
+            <div className="attachmentFiles">
+              {noticeData.attachments?.map((element, idx) => {
                 return (
                   <DownloadFile onClick={() => filesDownload(idx)}>
-                    <BsCardImage className="icon" />
-                    <span>이미지 파일</span>
+                    <div>
+                      <AiOutlineFile className="imgIcon" />
+                    </div>
+                    <div>
+                      <div className="filesName">{element.name}</div>
+                      <div className="filesSize">
+                        {parseInt(element.size / 1000)} KB
+                      </div>
+                    </div>
                   </DownloadFile>
                 );
               })}
@@ -287,6 +294,10 @@ const NoticePageContainer = styled.section`
       .addFile {
         margin-top: 60px;
       }
+
+      .attachmentFiles {
+        display: flex;
+      }
     }
   }
 `;
@@ -334,7 +345,8 @@ const EditContentTag = styled.textarea`
 `;
 
 const DownloadFile = styled.div`
-  display: inline-block;
+  display: flex;
+  margin-right: 20px;
   padding: 15px;
   align-items: center;
   margin-top: 10px;
@@ -342,11 +354,26 @@ const DownloadFile = styled.div`
   height: 60px;
   border: 1px solid black;
   border-radius: 5px;
-  font-size: 15px;
+  cursor: pointer;
 
-  .icon {
-    padding-top: 5px;
-    font-size: 20px;
-    margin-right: 5px;
+  div {
+    .imgIcon {
+      padding-top: 5px;
+      font-size: 35px;
+      margin-right: 5px;
+    }
+  }
+
+  .filesName {
+    margin-bottom: 5px;
+    font-size: 14px;
+    width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .filesSize {
+    font-size: 12px;
   }
 `;
