@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DaumPostcode from "react-daum-postcode";
 import UserInfo from "../../components/Profile/UserInfo";
 import { Link } from "react-router-dom";
+import { API } from "../../config";
 import "./EditUserInfo.scss";
 
 const EditUserInfo = () => {
@@ -25,6 +26,7 @@ const EditUserInfo = () => {
   const [isAddress, setIsAddress] = useState("");
   const [isZoneCode, setIsZoneCode] = useState();
   const [openPost, setOpenPost] = useState(false);
+  const [userProfile, setuserProfile] = useState([]);
 
   const handleInput = (e) => {
     setValues({
@@ -64,15 +66,29 @@ const EditUserInfo = () => {
     setOpenPost(!openPost);
   };
 
+  useEffect(() => {
+    fetch(`${API}/employee/profile`, {
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setuserProfile(data);
+      });
+  }, []);
+
+  console.log(userProfile);
   return (
     <div className="EditUserProfile">
       <h1> 정보수정</h1>
       <form className="forms">
         <UserInfo
+          account={userProfile.account}
           name="userId"
           title="아이디"
           type="text"
-          value={form.userId}
+          value={userProfile.account}
           handleInput={handleInput}
         />
 
@@ -104,20 +120,22 @@ const EditUserInfo = () => {
           handleInput={handleInput}
         />
         <UserInfo
+          name_kor={userProfile.name_kor}
           name="nameKor"
           essential="*"
           title="이름 (한글)"
           type="text"
-          value={form.nameKor}
+          value={userProfile.name_kor}
           handleInput={handleInput}
         />
 
         <UserInfo
+          name_eng={userProfile.name_eng}
           name="nameEn"
           essential="*"
           title="이름 (영문)"
           type="text"
-          value={form.nameEn}
+          value={userProfile.name_eng}
           handleInput={handleInput}
         />
 
@@ -134,7 +152,7 @@ const EditUserInfo = () => {
           name="idNumber"
           title="주민번호"
           type="number"
-          value={form.idNumber}
+          value={userProfile.rrn}
           handleInput={handleInput}
         />
 
@@ -192,7 +210,7 @@ const EditUserInfo = () => {
       <div className="userAddress">
         <p> 주소 </p>
         <div className="searchPostArea">
-          <input className="addressInput" value={isAddress} />
+          <input className="addressInput" />
           <button onClick={showPostcode}>우편번호 찾기</button>
           {openPost && (
             <>
