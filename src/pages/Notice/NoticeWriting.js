@@ -44,7 +44,7 @@ const NoticeWriting = () => {
     //   formdata.append("attachment", f);
     // });
     // console.log(filelist);
-    // formdata.append("attachment[]", files);
+    // formdata.append("attachment", files);
     // formdata.append("attachment[2]", files);
     // for (let i = 0; i < files.length; i++) {
     //   formdata.append("attachment", files.files[i]);

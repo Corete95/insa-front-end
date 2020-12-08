@@ -101,10 +101,30 @@ const Side = () => {
     removeWorkingToken("working_token");
     setWorkingHoursCookies("working_hours", new Date(0));
     setFinishTimeCookies("finish_time", Date.now());
+
     removeStartTimeCookies("start_time");
     removePauseTimeCookies("pause_time");
     removeReStartTimeCookies("restart_time");
     clearTimeout(interval.current);
+  };
+
+  const photoUpload = (e) => {
+    const formdata = new FormData();
+    formdata.append("attachment", e.target.files[0]);
+
+    axios
+      .patch(`${API}/employee/profile/image`, formdata, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(() => {
+        console.log("데이터 성공");
+      })
+      .catch((response) => {
+        console.log("error >>>>", response.response);
+      });
   };
 
   useEffect(() => {
@@ -117,14 +137,23 @@ const Side = () => {
       .then((data) => {
         setuserData(data);
       });
-  }, []);
-  console.log(userData);
+  }, [userData]);
+
   return (
     <SideBarContainer>
       <Profile>
         <div className="profileContainer">
-          <img src={userData.profile_image} alt="예시 입니다." />
-          <BsPlus className="plusButton" />
+          <img src={userData.profile_image} alt="프로필 이미지 입니다." />
+          <label for="profilePhoto">
+            <BsPlus className="plusButton" />
+          </label>
+          <input
+            type="file"
+            accept="image/jpeg, image/jpg, image/png"
+            id="profilePhoto"
+            onClick={(e) => photoUpload(e)}
+            style={{ display: "none" }}
+          />
         </div>
         <div className="userData">
           <div className="userState">{userState}</div>
@@ -230,6 +259,7 @@ const Profile = styled.div`
       border-radius: 50%;
       outline: none;
       background-color: #c7bdae;
+      cursor: pointer;
 
       :hover {
         width: 37px;
