@@ -26,7 +26,12 @@ const NoticeDetailPage = ({ match }) => {
 
     axios.patch(
       `${API}/notice/detail/${match.params.id}`,
-      { ...noticeData, content: noticeData.content },
+      {
+        data: {
+          ...noticeData,
+          content: noticeData.content
+        }
+      },
       {
         headers: { Authorization: localStorage.getItem("token") }
       }
