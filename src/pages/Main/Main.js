@@ -9,6 +9,7 @@ import "./Main.scss";
 const Main = () => {
   const [noticeContents, setNoticeContents] = useState([]);
   const [mainProjectList, setMainProjectList] = useState([]);
+  const [userData, setuserData] = useState([]);
 
   useEffect(() => {
     fetch(`${API}/notice/main`)
@@ -25,21 +26,6 @@ const Main = () => {
         setMainProjectList(data.main_list);
       });
   }, []);
-
-  const [userData, setuserData] = useState([]);
-
-  useEffect(() => {
-    fetch(`${API}/employee/profile/main`, {
-      headers: {
-        Authorization: localStorage.getItem("token")
-      }
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setuserData(data);
-      });
-  }, []);
-  console.log(userData);
 
   return (
     <Container>

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 import { API } from "../../config";
 import "./Login.scss";
 import Privacy from "./Privacy";
 
 function Login(props) {
+  const history = useHistory();
   const [checked, setChecked] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,12 +38,10 @@ function Login(props) {
       .then((res) => {
         if (checked === true) {
           localStorage.setItem("token", res.token);
-          props.history.push("/Main");
-          alert("로그인 유지!");
+          history.push("/Main");
         } else {
           window.sessionStorage.setItem("token", res.token);
-
-          alert("로그인 유지 아님!!");
+          history.push("/Main");
         }
       });
   };

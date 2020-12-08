@@ -1,24 +1,39 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { BsBookmark, BsBookmarkFill } from "react-icons/bs";
+import { YJ_API } from "../../config";
+import { useHistory } from "react-router-dom";
 import "./ProjectComponent.scss";
 
 const ProjectComponet = ({
+  id,
   title,
-  member,
+  participants,
   description,
   start_date,
-  end_date,
-  icon
+  end_date
 }) => {
-  const [bookmark, setBookmark] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const history = useHistory();
 
   const handleBookmark = () => {
-    setBookmark(!bookmark);
+    setIsLiked(!isLiked);
+
+    axios.post(`${YJ_API}/project/like/${id}`, {
+      project_id: id
+    });
   };
+
+  const goToDetail = () => {
+    history.push(`/ProjectDetail/${id}`);
+    alert("이동!");
+  };
+
+  console.log(id);
 
   return (
     <div className="gridProjectComponent">
-      <div className="projectContent">
+      <div className="projectContent" onClick={goToDetail}>
         <h3>{title}</h3>
       </div>
       <div className="projectContentContainer">
@@ -30,9 +45,9 @@ const ProjectComponet = ({
         </div>
       </div>
       <div className="projectFooter">
-        <p>{member}명 참여중</p>
+        <p>{participants}명 참여중</p>
         <div className="bookmarkIcon" onClick={handleBookmark}>
-          {bookmark ? (
+          {isLiked ? (
             <BsBookmarkFill className="bookmarkFillIcon" />
           ) : (
             <BsBookmark className="bookmarkIcon" />

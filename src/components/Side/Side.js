@@ -4,7 +4,7 @@ import Calendar from "../../components/Side/components/react-calendar/src/Calend
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { BsPlus } from "react-icons/bs";
-import { workingHours_API, API } from "../../config";
+import { API } from "../../config";
 import "./Side.scss";
 
 const stateName = ["근무 중", "식사", "휴식"];
@@ -13,6 +13,7 @@ const Side = () => {
   const [value, onChange] = useState(() => new Date());
   const [hiddenState, setHiddenState] = useState(false);
   const [userState, setUserState] = useState("근무 중");
+  const [userData, setuserData] = useState([]);
 
   const [onWorking, setOnWorking] = useState(false);
   const [persistState, setPersistState] = useState(null);
@@ -152,7 +153,7 @@ const Side = () => {
         <div className="userData">
           <div className="userState">{userState}</div>
           <div className="userName">
-            김인사
+            {userData.name}
             <StateChangeButton onClick={showingButton}>▼</StateChangeButton>
           </div>
           <div className="hiddenContainer">
@@ -187,7 +188,7 @@ const Side = () => {
               );
             })}
           </div>
-          <div className="dDay">D +555</div>
+          <div className="dDay">D +{userData.joined_since}</div>
         </div>
         <div>
           {new Date(workingHoursCookies.working_hours).getHours() - 9}시간{" "}
