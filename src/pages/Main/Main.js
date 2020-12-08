@@ -12,7 +12,9 @@ const Main = () => {
 
   useEffect(() => {
     fetch(`${API}/notice/main`, {
-      headers: { Authorization: localStorage.getItem("token") }
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
     })
       .then((response) => response.json())
       .then((data) => {
@@ -22,7 +24,9 @@ const Main = () => {
 
   useEffect(() => {
     fetch(`${API}/project/main`, {
-      headers: { token: localStorage.getItem("token") }
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
     })
       .then((response) => response.json())
       .then((data) => {
