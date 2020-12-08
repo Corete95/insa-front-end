@@ -37,7 +37,6 @@ function Login(props) {
       .then((res) => {
         if (checked === true) {
           localStorage.setItem("token", res.token);
-          console.log("asdas");
           props.history.push("/Main");
           alert("로그인 유지!");
         } else {

@@ -81,7 +81,6 @@ const NoticeDetailPage = ({ match }) => {
     axios
       .get(`${API}/notice/detail/${match.params.id}`)
       .then((response) => {
-        console.log(response.data);
         setIdNumber(match.params.id);
         setNoticeData(response.data.notice);
         setNoticePrevious(response.data.previous);

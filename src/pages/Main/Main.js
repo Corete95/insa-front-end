@@ -26,8 +26,21 @@ const Main = () => {
       });
   }, []);
 
-  console.log(mainProjectList);
-  console.log(noticeContents);
+  const [userData, setuserData] = useState([]);
+
+  useEffect(() => {
+    fetch(`${API}/employee/profile/main`, {
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setuserData(data);
+      });
+  }, []);
+  console.log(userData);
+
   return (
     <Container>
       <NoticeContainer>

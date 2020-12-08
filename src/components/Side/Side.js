@@ -4,6 +4,7 @@ import Calendar from "../../components/Side/components/react-calendar/src/Calend
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { BsPlus } from "react-icons/bs";
+import { workingHours_API, API } from "../../config";
 import "./Side.scss";
 
 const stateName = ["근무 중", "식사", "휴식"];
@@ -15,6 +16,10 @@ const Side = () => {
 
   const [onWorking, setOnWorking] = useState(false);
   const [persistState, setPersistState] = useState(null);
+
+  const [profilePhoto, setProfilePhoto] = useState(
+    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80"
+  );
 
   const [workingToken, setWorkingToken, removeWorkingToken] = useCookies([
     "working_token"
@@ -64,10 +69,6 @@ const Side = () => {
       "working_hours",
       new Date(Date.now() - startTimeCookies.start_time)
     );
-
-    axios.post("url", {
-      body: startTimeCookies.start_time
-    });
   };
 
   useEffect(() => {
@@ -85,10 +86,6 @@ const Side = () => {
       setPersistState(true);
       setWorkingToken("working_token", "onWorking");
       setReStartTimeCookies("restart_time", Date.now());
-
-      axios.post("url", {
-        body: reStartTimeCookies.restart_time - pauseTimeCookies.pause_time
-      });
     }
   };
 
@@ -107,9 +104,6 @@ const Side = () => {
     removeWorkingToken("working_token");
     setWorkingHoursCookies("working_hours", new Date(0));
     setFinishTimeCookies("finish_time", Date.now());
-    axios.post("url", {
-      body: finishTimeCookies.finish_time
-    });
 
     removeStartTimeCookies("start_time");
     removePauseTimeCookies("pause_time");
@@ -117,11 +111,24 @@ const Side = () => {
     clearTimeout(interval.current);
   };
 
-  useEffect(() => {
-    axios.post("url", {
-      body: "출퇴근 시간 기록할 건데..."
-    });
-  }, []);
+  const photoUpload = (e) => {
+    const formdata = new FormData();
+    formdata.append("attachment", e.target.files[0]);
+
+    axios
+      .patch(`${API}/employee/profile/image`, formdata, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(() => {
+        console.log("데이터 성공");
+      })
+      .catch((response) => {
+        console.log("error >>>>", response.response);
+      });
+  };
 
   return (
     <SideBarContainer>
@@ -129,9 +136,18 @@ const Side = () => {
         <div className="profileContainer">
           <img
             src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80"
-            alt="예시 입니다."
+            alt="프로필 이미지 입니다."
           />
-          <BsPlus className="plusButton" />
+          <label for="profilePhoto">
+            <BsPlus className="plusButton" />
+          </label>
+          <input
+            type="file"
+            accept="image/jpeg, image/jpg, image/png"
+            id="profilePhoto"
+            onClick={(e) => photoUpload(e)}
+            style={{ display: "none" }}
+          />
         </div>
         <div className="userData">
           <div className="userState">{userState}</div>
@@ -237,6 +253,7 @@ const Profile = styled.div`
       border-radius: 50%;
       outline: none;
       background-color: #c7bdae;
+      cursor: pointer;
 
       :hover {
         width: 37px;
