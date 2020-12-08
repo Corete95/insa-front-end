@@ -33,7 +33,7 @@ class Routes extends Component {
                   <Route exact path="/Project" component={Project} />
                   <Route
                     exact
-                    path="/ProjectDetail"
+                    path="/ProjectDetail/:id"
                     component={ProjectDetail}
                   />
                   <Route
