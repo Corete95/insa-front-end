@@ -9,10 +9,11 @@ import "./Main.scss";
 const Main = () => {
   const [noticeContents, setNoticeContents] = useState([]);
   const [mainProjectList, setMainProjectList] = useState([]);
-  const [userData, setuserData] = useState([]);
 
   useEffect(() => {
-    fetch(`${API}/notice/main`)
+    fetch(`${API}/notice/main`, {
+      headers: { Authorization: localStorage.getItem("token") }
+    })
       .then((response) => response.json())
       .then((data) => {
         setNoticeContents(data.returning_notices);
@@ -20,7 +21,9 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`${API}/project/main`)
+    fetch(`${API}/project/main`, {
+      headers: { token: localStorage.getItem("token") }
+    })
       .then((response) => response.json())
       .then((data) => {
         setMainProjectList(data.main_list);

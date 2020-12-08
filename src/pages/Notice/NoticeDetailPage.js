@@ -23,6 +23,14 @@ const NoticeDetailPage = ({ match }) => {
 
   const changeEditMode = () => {
     setIsInEditMode(!isInEditMode);
+
+    axios.patch(
+      `${API}/notice/detail/${match.params.id}`,
+      { ...noticeData, content: noticeData.content },
+      {
+        headers: { Authorization: localStorage.getItem("token") }
+      }
+    );
   };
 
   const onChangeTitle = (e) => {
@@ -79,7 +87,9 @@ const NoticeDetailPage = ({ match }) => {
 
   useEffect(() => {
     axios
-      .get(`${API}/notice/detail/${match.params.id}`)
+      .get(`${API}/notice/detail/${match.params.id}`, {
+        headers: { Authorization: localStorage.getItem("token") }
+      })
       .then((response) => {
         setIdNumber(match.params.id);
         setNoticeData(response.data.notice);

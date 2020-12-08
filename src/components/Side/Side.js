@@ -18,10 +18,6 @@ const Side = () => {
   const [onWorking, setOnWorking] = useState(false);
   const [persistState, setPersistState] = useState(null);
 
-  const [profilePhoto, setProfilePhoto] = useState(
-    "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80"
-  );
-
   const [workingToken, setWorkingToken, removeWorkingToken] = useCookies([
     "working_token"
   ]);
@@ -131,14 +127,23 @@ const Side = () => {
       });
   };
 
+  useEffect(() => {
+    fetch(`${API}/employee/profile/main`, {
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setuserData(data);
+      });
+  }, [userData]);
+
   return (
     <SideBarContainer>
       <Profile>
         <div className="profileContainer">
-          <img
-            src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80"
-            alt="프로필 이미지 입니다."
-          />
+          <img src={userData.profile_image} alt="프로필 이미지 입니다." />
           <label for="profilePhoto">
             <BsPlus className="plusButton" />
           </label>
