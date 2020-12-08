@@ -9,6 +9,7 @@ import "./Main.scss";
 const Main = () => {
   const [noticeContents, setNoticeContents] = useState([]);
   const [mainProjectList, setMainProjectList] = useState([]);
+  const [userData, setuserData] = useState([]);
 
   useEffect(() => {
     fetch(`${API}/notice/main`)
@@ -28,6 +29,7 @@ const Main = () => {
 
   console.log(mainProjectList);
   console.log(noticeContents);
+  console.log(userData);
   return (
     <Container>
       <NoticeContainer>

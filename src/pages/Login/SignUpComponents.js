@@ -5,7 +5,7 @@ import DaumPostcode from "react-daum-postcode";
 import InputComponent from "./InputComponent";
 import SignupEnd from "./SignupEnd";
 import { BiX } from "react-icons/bi";
-import { CY_API } from "../../config";
+import { API } from "../../config";
 import "./SignUpComponents.scss";
 
 const SignUp = ({ open, SignUpClose }) => {
@@ -122,7 +122,7 @@ const SignUp = ({ open, SignUpClose }) => {
 
     if (isValid) {
       axios
-        .post(`${CY_API}/employee/signup`, {
+        .post(`${API}/employee/signup`, {
           account: userId,
           password: password,
           name_kor: nameKor,
@@ -239,7 +239,7 @@ const SignUp = ({ open, SignUpClose }) => {
                 />
               </div>
             </div>
-            <button className="joinBtn" onClick={moveEndUp}>
+            <button className="joinBtn" onClick={submit}>
               회원가입
             </button>
           </section>

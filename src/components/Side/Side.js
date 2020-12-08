@@ -4,6 +4,7 @@ import Calendar from "../../components/Side/components/react-calendar/src/Calend
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { BsPlus } from "react-icons/bs";
+import { API } from "../../config";
 import "./Side.scss";
 
 const stateName = ["근무 중", "식사", "휴식"];
@@ -12,6 +13,7 @@ const Side = () => {
   const [value, onChange] = useState(() => new Date());
   const [hiddenState, setHiddenState] = useState(false);
   const [userState, setUserState] = useState("근무 중");
+  const [userData, setuserData] = useState([]);
 
   const [onWorking, setOnWorking] = useState(false);
   const [persistState, setPersistState] = useState(null);
@@ -105,20 +107,29 @@ const Side = () => {
     clearTimeout(interval.current);
   };
 
+  useEffect(() => {
+    fetch(`${API}/employee/profile/main`, {
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setuserData(data);
+      });
+  }, []);
+  console.log(userData);
   return (
     <SideBarContainer>
       <Profile>
         <div className="profileContainer">
-          <img
-            src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80"
-            alt="예시 입니다."
-          />
+          <img src={userData.profile_image} alt="예시 입니다." />
           <BsPlus className="plusButton" />
         </div>
         <div className="userData">
           <div className="userState">{userState}</div>
           <div className="userName">
-            김인사
+            {userData.name}
             <StateChangeButton onClick={showingButton}>▼</StateChangeButton>
           </div>
           <div className="hiddenContainer">
@@ -153,7 +164,7 @@ const Side = () => {
               );
             })}
           </div>
-          <div className="dDay">D +555</div>
+          <div className="dDay">D +{userData.joined_since}</div>
         </div>
         <div>
           {new Date(workingHoursCookies.working_hours).getHours() - 9}시간{" "}
