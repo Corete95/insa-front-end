@@ -119,11 +119,11 @@ const Side = () => {
           "Content-Type": "multipart/form-data"
         }
       })
-      .then(() => {
-        console.log("데이터 성공");
+      .then((res) => {
+        console.log("데이터 성공", res);
       })
       .catch((response) => {
-        console.log("error >>>>", response.response);
+        console.log("에러 메세지 확인 입니다. >>>>", response.response);
       });
   };
 

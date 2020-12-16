@@ -26,21 +26,21 @@ const Project = () => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   if (focusedMenu !== "bookmark") {
-  //     return;
-  //   }
-  //   fetch(`${API}/project/like`, {
-  //     method: "POST",
-  //     headers: {
-  //       Authorization: localStorage.getItem("token")
-  //     }
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       SetBookmark(data.like_list);
-  //     });
-  // }, [focusedMenu]);
+  useEffect(() => {
+    if (focusedMenu !== "bookmark") {
+      return;
+    }
+    fetch(`${API}/project/like`, {
+      method: "POST",
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        SetBookmark(data.like_list);
+      });
+  }, [focusedMenu]);
 
   const handleBtnColor = (e) => {
     SetFocusedMenu(e.target.id);
@@ -123,7 +123,7 @@ const Project = () => {
                   id={project_data.id}
                   title={project_data.title}
                   description={project_data.description}
-                  participants={project_data.participants}
+                  member={project_data.participants}
                 />
               );
             } else {

@@ -173,11 +173,15 @@
           .file {
             display: flex;
             align-items: center;
-            justify-content: center;
             width: 235px;
             height: 100%;
             border: 1px solid #e6e6e6;
             border-radius: 21px;
+            cursor: pointer;
+            .filesImg {
+              padding-left: 12px;
+              width: 30%;
+            }
           }
         }
         .commentFooter {

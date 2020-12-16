@@ -18,7 +18,12 @@ const CommentList = ({ data, key }) => {
       </div>
       <div className="commentCenter">{data.text}</div>
       <div className="commentFiles">
-        <div className="file">첨부파일 입니다.</div>
+        <div className="file">
+          <div className="filesImg">
+            <img src="/images/filesIcon.svg" />
+          </div>
+          <p>첨부 파일 입니다.</p>
+        </div>
       </div>
       <div className="commentFooter">
         <span>댓글 {data.comment}개</span>

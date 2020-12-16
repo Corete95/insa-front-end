@@ -89,7 +89,6 @@ const NoticeDetailPage = ({ match }) => {
         setNoticeData(response.data.notice);
         setNoticePrevious(response.data.previous);
         setNoticeNext(response.data.next);
-        console.log(response.data);
       })
       .catch((response) => {
         console.log("error");

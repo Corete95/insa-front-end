@@ -32,7 +32,6 @@ const EditUserInfo = () => {
     setValues({
       [e.target.name]: e.target.value
     });
-    console.log("hello", e.target.value);
   };
 
   const handleComplete = (data) => {
