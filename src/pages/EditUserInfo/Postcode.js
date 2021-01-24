@@ -21,8 +21,6 @@ const Postcode = () => {
       }
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
-
-    console.log(fullAddress);
   };
 
   return <DaumPostcode onComplete={handleComplete} />;

@@ -54,26 +54,6 @@ const Notice = () => {
       });
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get("https://jsonplaceholder.typicode.com/posts?_page=1&_limit=5")
-  //     .then((res) => setlistMock(res.data));
-  // }, []);
-
-  // const handlePageChange = (pageNumber) => {
-  //   axios
-  //     .get(
-  //       `https://jsonplaceholder.typicode.com/posts?_page=${pageNumber}&_limit=5`
-  //     )
-  //     .then((res) => {
-  //       setlistMock(res.data);
-  //     });
-
-  //   setactivePage(pageNumber);
-  // };
-
-  console.log(inputValue);
-
   return (
     <>
       <div className="notice">
@@ -108,12 +88,7 @@ const Notice = () => {
             <div className="line"></div>
           </div>
           <div>
-            <NoticeList
-              listMock={listMock}
-              /*listMock={listMock.filter(
-                (data) => data.title.toLowerCase().indexOf(inputValue) !== -1
-              )}*/
-            />
+            <NoticeList listMock={listMock} />
             <Pagination
               activePage={activePage}
               itemsCountPerPage={5}

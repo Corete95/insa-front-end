@@ -135,8 +135,8 @@ const SignUp = ({ open, SignUpClose }) => {
 
         .then((res) => {
           if (res.status === 201) {
+            SignUpClose();
             alert("회원가입에 성공했습니다!");
-            isendModalOpen();
           }
         })
 

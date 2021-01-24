@@ -14,6 +14,7 @@ function Login(props) {
   const isPrivacyModalOpen = () => {
     setprivacyModal(true);
   };
+
   const isPrivacyModalClose = () => {
     setprivacyModal(false);
   };
